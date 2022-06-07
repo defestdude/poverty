@@ -9,5 +9,6 @@ year = todays_date.year
 
 #URL Conf
 urlpatterns  = [
+    path('', views.dashboard),
     path('dashboard', views.dashboard, name='dashboard'),
 ]
