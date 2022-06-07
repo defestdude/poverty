@@ -1,0 +1,367 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <title>    Poverty Clock  </title>
+  <!-- Extra details for Live View on GitHub Pages -->
+  <!-- Canonical SEO -->
+  <link rel="canonical" href="https://www.creative-tim.com/product/soft-ui-dashboard-pro" />
+  <!--  Social tags      -->
+  <meta name="keywords" content="creative tim, html dashboard, html css dashboard, web dashboard, bootstrap 5 dashboard, bootstrap 5, css3 dashboard, bootstrap 5 admin, soft ui dashboard bootstrap 5 dashboard, frontend, responsive bootstrap 5 dashboard, soft design, soft dashboard bootstrap 5 dashboard">
+  <meta name="description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+  <!-- Twitter Card data -->
+  <meta name="twitter:card" content="product">
+  <meta name="twitter:site" content="@creativetim">
+  <meta name="twitter:title" content="Soft UI Dashboard PRO by Creative Tim">
+  <meta name="twitter:description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you.">
+  <meta name="twitter:creator" content="@creativetim">
+  <meta name="twitter:image" content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg">
+  <!-- Open Graph data -->
+  <meta property="fb:app_id" content="655968634437471">
+  <meta property="og:title" content="Soft UI Dashboard PRO by Creative Tim" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://demos.creative-tim.com/soft-ui-dashboard-pro/pages/dashboards/default.html" />
+  <meta property="og:image" content="https://s3.amazonaws.com/creativetim_bucket/products/487/thumb/opt_sdp_thumbnail.jpg" />
+  <meta property="og:description" content="Soft UI Dashboard PRO is a beautiful Bootstrap 5 admin dashboard with a large number of components, designed to look beautiful, clean and organized. If you are looking for a tool to manage dates about your business, this dashboard is the thing for you." />
+  <meta property="og:site_name" content="Creative Tim" />
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="{% static '/css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static '/css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="{% static '/css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{% static '/css/soft-ui-dashboard.min.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static '/css/style.css' %}">
+
+  {% block custom_css %}
+
+  {% endblock custom_css %}
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+
+  <main class="main-content position-relative max-height-vh-100 h-100 ">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-main navbar-expand-lg position-sticky mt-4 px-0 mx-4 shadow-none z-index-sticky" id="navbarBlur" data-scroll="true">
+      <div class="container-fluid py-1 px-3">
+
+        <!-- <div class="sidenav-toggler sidenav-toggler-inner d-xl-block d-none ">
+          <a href="javascript:;" class="nav-link text-body p-0">
+            <div class="sidenav-toggler-inner">
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+            </div>
+          </a>
+        </div> -->
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <a href="#" class="navbar-brand" style="font-size: 20px; font-weight:600; color: white;">N P C</a>
+
+          <ul class="navbar-nav nav-links ms-auto">
+            <!-- navbar toggle button  -->
+            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                <div class="sidenav-toggler-inner">
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                  <i class="sidenav-toggler-line"></i>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <a href="#" class="nav-link text-body font-weight-bold px-0" target="_blank">
+                <span class="d-sm-inline d-none">About</span>
+              </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <a href="#" class="nav-link text-body font-weight-bold px-0" target="_blank">
+                <span class="d-sm-inline d-none">Methodology</span>
+              </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+              <a href="#" class="nav-link text-body font-weight-bold px-0" target="_blank">
+                <span class="d-sm-inline d-none">Contact</span>
+              </a>
+            </li>
+            <li class="nav-item d-flex align-items-center">
+                <button class="btn btn-light d-sm-inline d-none mt-3" id="request-btn" data-toggle="modal"
+                data-target="#modal-body">Request Data</button>
+            </li>
+            <!-- <button class="btn btn-light" type="submit">Request Data</button> -->
+
+            <!-- <li class="nav-item px-3 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0">
+                <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+              </a>
+            </li> -->
+            <!-- <li class="nav-item dropdown pe-2 d-flex align-items-center">
+              <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-bell cursor-pointer"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="assets/img/team-2.jpg" class="avatar avatar-sm  me-3 " alt="user image">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New message</span> from Laur
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          13 minutes ago
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li class="mb-2">
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="my-auto">
+                        <img src="assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 " alt="logo spotify">
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          <span class="font-weight-bold">New album</span> by Travis Scott
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          1 day
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item border-radius-md" href="javascript:;">
+                    <div class="d-flex py-1">
+                      <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
+                        <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                          <title>credit-card</title>
+                          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                              <g transform="translate(1716.000000, 291.000000)">
+                                <g transform="translate(453.000000, 454.000000)">
+                                  <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                  <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                </g>
+                              </g>
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="d-flex flex-column justify-content-center">
+                        <h6 class="text-sm font-weight-normal mb-1">
+                          Payment successfully completed
+                        </h6>
+                        <p class="text-xs text-secondary mb-0">
+                          <i class="fa fa-clock me-1"></i>
+                          2 days
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- ^ End NAVBAR -->
+ <!-- Start Content-->
+ {% block content %}
+
+ {% endblock content %}
+  <!-- FOOTER -->
+  <footer class="footer py-3  ">
+    <div class="container-fluid">
+      <div class="row align-items-center justify-content-lg-between">
+        <div class="col-lg-6 mb-lg-0 mb-4">
+          <div class="copyright text-center text-sm text-muted text-lg-start">
+            © <script>
+              document.write(new Date().getFullYear())
+            </script>,
+            Nigeria Poverty Clock, powered by Diadem Research.
+
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+            <li class="nav-item">
+              <a href="#" class="nav-link text-muted" target="_blank">About</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-muted" target="_blank">Methodology</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link text-muted" target="_blank">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+ <!-- End Content -->
+  </main>
+  <!-- FLOATING BUTTON SETTINGS -->
+  <div class="fixed-plugin">
+    <a class="fixed-plugin-button fixed-buttons text-dark position-fixed px-3 py-2 ">
+      <!-- <p>Add Filters</p> -->
+      <!-- <i class="fa fa-cog py-2"> </i> -->
+      <i class="fas fa-filter"></i>
+    </a>
+
+    <div class="card filters-sidenav shadow-lg blur">
+      <div class="card-header pb-0 pt-3  bg-transparent ">
+        <div class="float-start">
+          <h5 class="mt-3 mb-0">Add Filters</h5>
+        </div>
+        <div class="float-end mt-4">
+          <button class="btn btn-link text-dark p-0 fixed-plugin-close-button">
+            <i class="fa fa-close"></i>
+          </button>
+        </div>
+        <!-- End Toggle Button -->
+      </div>
+      <hr class="horizontal dark my-1">
+      <div class="card-body pt-sm-3 pt-0">
+        <!-- Search states filter -->
+        <div>
+          <h6 class="mb-0">Search by State</h6>
+        </div>
+        <div class="filter-set-item">
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle dropdown-btn"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              All States
+            </button>
+            <div
+              class="dropdown-menu drop-list"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <a class="dropdown-item" href="#">Abia</a>
+              <a class="dropdown-item" href="#">Adamawa</a>
+              <a class="dropdown-item" href="#">Akwa Ibom</a>
+            </div>
+          </div>
+        </div>
+        <!-- Geographical filter -->
+        <div class="filter-set-item">
+          <h6>Geographical Filter</h6>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle dropdown-btn ml-auto"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              All
+            </button>
+            <div
+              class="dropdown-menu drop-list"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <a class="dropdown-item" href="#">All</a>
+              <a class="dropdown-item" href="#">Rural</a>
+              <a class="dropdown-item" href="#">Urban</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Demographic filter -->
+        <div class="filter-set-item">
+          <h6>Demographic Filter</h6>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle dropdown-btn"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              All
+            </button>
+            <!-- <i class="fa-solid fa-chevron-down"></i> -->
+            <div
+              class="dropdown-menu drop-list"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <a class="dropdown-item" href="#">All</a>
+              <a class="dropdown-item" href="#">Female</a>
+              <a class="dropdown-item" href="#">Male</a>
+            </div>
+          </div>
+        </div>
+        <!-- filter by year  -->
+        <div class="filter-set-item">
+          <h6>Filter by year</h6>
+          <div class="dropdown">
+            <button
+              class="btn btn-secondary dropdown-toggle dropdown-btn"
+              type="button"
+              id="dropdownMenuButton"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              2022
+            </button>
+            <!-- <i class="fa-solid fa-chevron-down"></i> -->
+            <div
+              class="dropdown-menu drop-list"
+              aria-labelledby="dropdownMenuButton"
+            >
+              <a class="dropdown-item" href="#">2022</a>
+              <a class="dropdown-item" href="#">2016</a>
+              <a class="dropdown-item" href="#">2017</a>
+              <a class="dropdown-item" href="#">2018</a>
+
+            </div>
+          </div>
+        </div>
+        <a href=""> <h6 class="reset-btn text-center">Reset Filters</h6></a>
+        <hr class="horizontal dark my-sm-4">
+        <a class="btn filter-btn bg-success w-100 fixed-plugin-close-button" href="#">Done</a>
+      </div>
+    </div>
+  </div>
+
+  <!--   Core JS Files   -->
+  <script src="{% static '/js/core/popper.min.js' %}"></script>
+  <script src="{% static '/js/core/bootstrap.min.js' %}"></script>
+  <script src="{% static '/js/plugins/perfect-scrollbar.min.js' %}"></script>
+  <script src="{% static '/js/plugins/smooth-scrollbar.min.js' %}"></script>
+ 
+    {% block custom_js %}
+
+    {% endblock custom_js %}
+  
+</body>
+
+</html>
