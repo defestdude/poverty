@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth import get_user_model
 
 # Create your models here.
 class poverty_features(models.Model):
@@ -16,3 +18,16 @@ class poverty_features(models.Model):
     cbl_ra = models.DecimalField(max_digits=21, decimal_places=10, null=False)
     cb_msme = models.DecimalField(max_digits=21, decimal_places=10, null=False)
     vt_nse = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    
+
+class EmailBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        UserModel = get_user_model()
+        try:
+            user = UserModel.objects.get(email=username)
+        except UserModel.DoesNotExist:
+            return None
+        else:
+            if user.check_password(password):
+                return user
+        return None
