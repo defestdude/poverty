@@ -57,7 +57,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="clock-numbers d-flex flex-column h-100">
-                  <h2 class="font-weight-bolder mb-0">441,682,814</h2>
+                  <h2 data-easing="linear" data-duration="90000" class="font-weight-bolder mb-0 counters">441682814</h2>
                   <h6>PEOPLE IN NIGERIA LIVING IN EXTREME POVERTY</h6>
                 </div>
               </div>
@@ -302,8 +302,22 @@
   <script src="{% static '/js/plugins/chartjs.min.js' %}"></script>
   <script src="{% static '/js/plugins/threejs.js' %}"></script>
   <script src="{% static '/js/plugins/orbit-controls.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script src="{% static 'js/counter.min.js' %}"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
+
+    $('.counters').each(function () {
+      $(this).prop('Counter',5999900).animate({
+          Counter: $(this).text()
+      }, {
+          duration: 40000000,
+          easing: 'swing',
+          step: function (now) {
+              $(this).text(Math.ceil(now));
+          }
+      });
+  });
 
     new Chart(ctx, {
       type: "bar",
