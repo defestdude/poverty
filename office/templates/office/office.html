@@ -2,13 +2,14 @@
 {% extends 'office_main.html' %}
 {% load static %}
 
+
+
+  {% block custom_css %}
+  <link id="pagestyle" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" />
+  {% endblock custom_css %}
+
 {% block content %}
-{% if messages %}
-{% for message in messages %}
-   <p style="color: green">{{ message }}</p>
-{% endfor %}
-<hr>
-{% endif %}
+
 
   <div class="container-fluid my-3 py-3">
     <div class="row mb-5">
@@ -55,7 +56,7 @@
                     </g>
                   </svg>
                 </div>
-                <span class="text-sm">2FA</span>
+                <span class="text-sm">Predictions</span>
               </a>
             </li>
             <li class="nav-item pt-2">
@@ -97,61 +98,46 @@
                     </g>
                   </svg>
                 </div>
-                <span class="text-sm">Notifications</span>
+                <span class="text-sm">Configurations</span>
               </a>
             </li>
-            <li class="nav-item pt-2">
-              <a class="nav-link text-body" data-scroll="" href="#sessions">
-                <div class="icon me-2">
-                  <svg class="text-dark mb-1" width="16px" height="16px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <title>settings</title>
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                      <g transform="translate(-2020.000000, -442.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                        <g transform="translate(1716.000000, 291.000000)">
-                          <g transform="translate(304.000000, 151.000000)">
-                            <polygon class="color-background" opacity="0.596981957" points="18.0883333 15.7316667 11.1783333 8.82166667 13.3333333 6.66666667 6.66666667 0 0 6.66666667 6.66666667 13.3333333 8.82166667 11.1783333 15.315 17.6716667"></polygon>
-                            <path class="color-background" d="M31.5666667,23.2333333 C31.0516667,23.2933333 30.53,23.3333333 30,23.3333333 C29.4916667,23.3333333 28.9866667,23.3033333 28.48,23.245 L22.4116667,30.7433333 L29.9416667,38.2733333 C32.2433333,40.575 35.9733333,40.575 38.275,38.2733333 L38.275,38.2733333 C40.5766667,35.9716667 40.5766667,32.2416667 38.275,29.94 L31.5666667,23.2333333 Z" opacity="0.596981957"></path>
-                            <path class="color-background" d="M33.785,11.285 L28.715,6.215 L34.0616667,0.868333333 C32.82,0.315 31.4483333,0 30,0 C24.4766667,0 20,4.47666667 20,10 C20,10.99 20.1483333,11.9433333 20.4166667,12.8466667 L2.435,27.3966667 C0.95,28.7083333 0.0633333333,30.595 0.00333333333,32.5733333 C-0.0583333333,34.5533333 0.71,36.4916667 2.11,37.89 C3.47,39.2516667 5.27833333,40 7.20166667,40 C9.26666667,40 11.2366667,39.1133333 12.6033333,37.565 L27.1533333,19.5833333 C28.0566667,19.8516667 29.01,20 30,20 C35.5233333,20 40,15.5233333 40,10 C40,8.55166667 39.685,7.18 39.1316667,5.93666667 L33.785,11.285 Z"></path>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
-                <span class="text-sm">Sessions</span>
-              </a>
-            </li>
-            <li class="nav-item pt-2">
-              <a class="nav-link text-body" data-scroll="" href="#delete">
-                <div class="icon me-2">
-                  <svg class="text-dark mb-1" width="16px" height="16px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <title>shop </title>
-                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                      <g transform="translate(-1716.000000, -439.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                        <g transform="translate(1716.000000, 291.000000)">
-                          <g transform="translate(0.000000, 148.000000)">
-                            <path class="color-background" d="M46.7199583,10.7414583 L40.8449583,0.949791667 C40.4909749,0.360605034 39.8540131,0 39.1666667,0 L7.83333333,0 C7.1459869,0 6.50902508,0.360605034 6.15504167,0.949791667 L0.280041667,10.7414583 C0.0969176761,11.0460037 -1.23209662e-05,11.3946378 -1.23209662e-05,11.75 C-0.00758042603,16.0663731 3.48367543,19.5725301 7.80004167,19.5833333 L7.81570833,19.5833333 C9.75003686,19.5882688 11.6168794,18.8726691 13.0522917,17.5760417 C16.0171492,20.2556967 20.5292675,20.2556967 23.494125,17.5760417 C26.4604562,20.2616016 30.9794188,20.2616016 33.94575,17.5760417 C36.2421905,19.6477597 39.5441143,20.1708521 42.3684437,18.9103691 C45.1927731,17.649886 47.0084685,14.8428276 47.0000295,11.75 C47.0000295,11.3946378 46.9030823,11.0460037 46.7199583,10.7414583 Z" opacity="0.598981585"></path>
-                            <path class="color-foreground" d="M39.198,22.4912623 C37.3776246,22.4928106 35.5817531,22.0149171 33.951625,21.0951667 L33.92225,21.1107282 C31.1430221,22.6838032 27.9255001,22.9318916 24.9844167,21.7998837 C24.4750389,21.605469 23.9777983,21.3722567 23.4960833,21.1018359 L23.4745417,21.1129513 C20.6961809,22.6871153 17.4786145,22.9344611 14.5386667,21.7998837 C14.029926,21.6054643 13.533337,21.3722507 13.0522917,21.1018359 C11.4250962,22.0190609 9.63246555,22.4947009 7.81570833,22.4912623 C7.16510551,22.4842162 6.51607673,22.4173045 5.875,22.2911849 L5.875,44.7220845 C5.875,45.9498589 6.7517757,46.9451667 7.83333333,46.9451667 L19.5833333,46.9451667 L19.5833333,33.6066734 L27.4166667,33.6066734 L27.4166667,46.9451667 L39.1666667,46.9451667 C40.2482243,46.9451667 41.125,45.9498589 41.125,44.7220845 L41.125,22.2822926 C40.4887822,22.4116582 39.8442868,22.4815492 39.198,22.4912623 Z"></path>
-                          </g>
-                        </g>
-                      </g>
-                    </g>
-                  </svg>
-                </div>
-                <span class="text-sm">Delete Account</span>
-              </a>
-            </li>
+            
+            
           </ul>
         </div>
       </div>
       <div class="col-lg-9 mt-lg-0 mt-4">
         <!-- Card Change Password -->
         <div class="card mt-4" id="features_overview">
-          <div class="card-header">
-            <h5>Features Head</h5>
-          </div>
+            {% if messages %}
+{% for message in messages %}
+<div class="alert alert-info alert-dismissible fade show  text-white " role="alert">
+    <span class="alert-icon"><i class="ni ni-like-2"></i></span>
+    <span class="alert-text"><strong>Info!</strong> Training is running as a background process.. Refresh shortly</span>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">×</span>
+    </button>
+    </div>
+{% endfor %}
+
+{% endif %}
+            <div class="card-header d-flex align-items-center border-bottom py-3">
+                <div class="d-flex align-items-center">
+                 
+                  <div class="mx-3">
+                    <a href="javascript:;" class="text-dark font-weight-600 text-sm">Features Datatable</a>
+                    <small class="d-block text-muted">Train Date: {{train_history.train_date}} | Train Score: {{train_history.train_score}}</small>
+                  </div>
+                </div>
+                <div class="text-end ms-auto">
+                  <button type="button" class="btn btn-sm bg-gradient-primary mb-0" data-bs-toggle="modal" data-bs-target="#modal-train">
+                    <i class="fas fa-reload pe-2"></i> Train Model
+                  </button>
+                </div>
+              </div>
           <div class="card-body">
           <div class="table-responsive">
+            <h6>head()</h6>
             <table class="table table-flush" id="features_head">
               <thead class="thead-light">
                 <tr>
@@ -164,67 +150,23 @@
                 </tr>
               </thead>
               <tbody>
+
+                {% for tab in features_head %}
                 <tr>
-                  <td class="text-sm font-weight-normal">09/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
+                  <td class="text-sm font-weight-normal">{{ tab.feature_date }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.gce_gdp|floatformat:2 }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.gce_es|floatformat:2 }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.gedo|floatformat:2 }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.sgd|floatformat:2 }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.lg_cex|floatformat:2 }}</td>
                 </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">10/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.35</td>
-                  <td class="text-sm font-weight-normal">34.66</td>
-                  <td class="text-sm font-weight-normal">634.14</td>
-                  <td class="text-sm font-weight-normal">-7.44</td>
-                  <td class="text-sm font-weight-normal">6.51</td>
-                </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">11/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
-                
-                <tr>
-                  <td class="text-sm font-weight-normal">12/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">13/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">14/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">15/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
+                {% endfor %}
+             
+               
               </tbody>
             </table>
         </div>
-        <h5>Features Tail</h5>
+        <h6>tail()</h6>
         <div class="table-responsive">
             <table class="table table-flush" id="features_tail">
               <thead class="thead-light">
@@ -238,63 +180,17 @@
                 </tr>
               </thead>
               <tbody>
+                {% for tab in features_tail %}
                 <tr>
-                  <td class="text-sm font-weight-normal">09/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
+                  <td class="text-sm font-weight-normal">{{ tab.feature_date }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.gce_gdp|floatformat:2 }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.gce_es|floatformat:2 }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.gedo|floatformat:2 }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.sgd|floatformat:2 }}</td>
+                  <td class="text-sm font-weight-normal">{{ tab.lg_cex|floatformat:2 }}</td>
                 </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">10/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.35</td>
-                  <td class="text-sm font-weight-normal">34.66</td>
-                  <td class="text-sm font-weight-normal">634.14</td>
-                  <td class="text-sm font-weight-normal">-7.44</td>
-                  <td class="text-sm font-weight-normal">6.51</td>
-                </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">11/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
-                
-                <tr>
-                  <td class="text-sm font-weight-normal">12/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">13/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">14/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
-                <tr>
-                  <td class="text-sm font-weight-normal">15/06/2022</td>
-                  <td class="text-sm font-weight-normal">4.34</td>
-                  <td class="text-sm font-weight-normal">33.66</td>
-                  <td class="text-sm font-weight-normal">633.14</td>
-                  <td class="text-sm font-weight-normal">-6.44</td>
-                  <td class="text-sm font-weight-normal">5.51</td>
-                </tr>
+                {% endfor %}
+               
               </tbody>
             </table>
         </div>
@@ -306,302 +202,71 @@
         <!-- Card Change Password -->
         <div class="card mt-4" id="2fa">
           <div class="card-header d-flex">
-            <h5 class="mb-0">Two-factor authentication</h5>
-            <span class="badge badge-success ms-auto">Enabled</span>
+            <h5 class="mb-0">Predictions</h5>
+            
           </div>
           <div class="card-body">
-            <div class="d-flex">
-              <p class="my-auto">Security keys</p>
-              <p class="text-secondary text-sm ms-auto my-auto me-3">No Security Keys</p>
-              <button class="btn btn-sm btn-outline-dark mb-0" type="button">Add</button>
+            <div class="table-responsive">
+              <h6>prophet()</h6>
+              <table class="table table-flush" id="prophet-data" >
+                <thead class="thead-light">
+                  <tr>
+                    <th>Date</th>
+                    <th>yhat</th>
+                    <th>yhat_lower</th>
+                    <th>yhat_upper</th>
+
+                  </tr>
+                </thead>
+               
+              </table>
             </div>
-            <hr class="horizontal dark">
-            <div class="d-flex">
-              <p class="my-auto">SMS number</p>
-              <p class="text-secondary text-sm ms-auto my-auto me-3">+4012374423</p>
-              <button class="btn btn-sm btn-outline-dark mb-0" type="button">Edit</button>
-            </div>
-            <hr class="horizontal dark">
-            <div class="d-flex">
-              <p class="my-auto">Authenticator app</p>
-              <p class="text-secondary text-sm ms-auto my-auto me-3">Not Configured</p>
-              <button class="btn btn-sm btn-outline-dark mb-0" type="button">Set up</button>
-            </div>
-          </div>
+        </div>
+       
         </div>
         <!-- Card Accounts -->
         <div class="card mt-4" id="accounts">
           <div class="card-header">
             <h5>Accounts</h5>
-            <p class="text-sm">Here you can setup and manage your integration settings.</p>
+            <p class="text-sm">Here you can setup and manage user accounts.</p>
           </div>
-          <div class="card-body pt-0">
-            <div class="d-flex">
-              <img class="width-48-px" src="../../../assets/img/small-logos/logo-slack.svg" alt="logo_slack">
-              <div class="my-auto ms-3">
-                <div class="h-100">
-                  <h5 class="mb-0">Slack</h5>
-                  <a class="text-sm text-body" href="javascript:;">Show less <i class="fas fa-chevron-up text-xs ms-1" aria-hidden="true"></i></a>
-                </div>
-              </div>
-              <p class="text-sm text-secondary ms-auto me-3 my-auto">Enabled</p>
-              <div class="form-check form-switch my-auto">
-                <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault1">
-              </div>
-            </div>
-            <div class="ps-5 pt-3 ms-3">
-              <p class="mb-0 text-sm">You haven't added your Slack yet or you aren't authorized. Please add our Slack Bot to your account by clicking on <a href="javascript">here</a>. When you've added the bot, send your verification code that you have received.</p>
-              <div class="d-sm-flex bg-gray-100 border-radius-lg p-2 my-4">
-                <p class="text-sm font-weight-bold my-auto ps-sm-2">Verification Code</p>
-                <input class="form-control form-control-sm ms-sm-auto mt-sm-0 mt-2 w-sm-15 w-40" type="text" value="1172913" data-bs-toggle="tooltip" data-bs-placement="top" title="Copy!">
-              </div>
-              <div class="d-sm-flex bg-gray-100 border-radius-lg p-2 my-4">
-                <p class="text-sm font-weight-bold my-auto ps-sm-2">Connected account</p>
-                <h6 class="text-sm ms-auto me-3 my-auto"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dfb7bab3b3b09fbcadbabeabb6a9baf2abb6b2f1bcb0b2">[email&#160;protected]</a></h6>
-                <button class="btn btn-sm bg-gradient-danger my-sm-auto mt-2 mb-0" type="button" name="button">Delete</button>
-              </div>
-            </div>
-            <hr class="horizontal dark">
-            <div class="d-flex">
-              <img class="width-48-px" src="../../../assets/img/small-logos/logo-spotify.svg" alt="logo_spotify">
-              <div class="my-auto ms-3">
-                <div class="h-100">
-                  <h5 class="mb-0">Spotify</h5>
-                  <p class="mb-0 text-sm">Music</p>
-                </div>
-              </div>
-              <p class="text-sm text-secondary ms-auto me-3 my-auto">Enabled</p>
-              <div class="form-check form-switch my-auto">
-                <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault2">
-              </div>
-            </div>
-            <hr class="horizontal dark">
-            <div class="d-flex">
-              <img class="width-48-px" src="../../../assets/img/small-logos/logo-atlassian.svg" alt="logo_atlassian">
-              <div class="my-auto ms-3">
-                <div class="h-100">
-                  <h5 class="mb-0">Atlassian</h5>
-                  <p class="mb-0 text-sm">Payment vendor</p>
-                </div>
-              </div>
-              <p class="text-sm text-secondary ms-auto me-3 my-auto">Enabled</p>
-              <div class="form-check form-switch my-auto">
-                <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault3">
-              </div>
-            </div>
-            <hr class="horizontal dark">
-            <div class="d-flex">
-              <img class="width-48-px" src="../../../assets/img/small-logos/logo-asana.svg" alt="logo_asana">
-              <div class="my-auto ms-3">
-                <div class="h-100">
-                  <h5 class="mb-0">Asana</h5>
-                  <p class="mb-0 text-sm">Organize your team</p>
-                </div>
-              </div>
-              <div class="form-check form-switch ms-auto my-auto">
-                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault4">
-              </div>
-            </div>
-          </div>
+        
         </div>
         <!-- Card Notifications -->
         <div class="card mt-4" id="notifications">
           <div class="card-header">
-            <h5>Notifications</h5>
-            <p class="text-sm">Choose how you receive notifications. These notification settings apply to the things you’re watching.</p>
+            <h5>Configurations</h5>
+            <p class="text-sm">System Configurations</p>
           </div>
-          <div class="card-body pt-0">
-            <div class="table-responsive">
-              <table class="table mb-0">
-                <thead>
-                  <tr>
-                    <th class="ps-1" colspan="4">
-                      <p class="mb-0">Activity</p>
-                    </th>
-                    <th class="text-center">
-                      <p class="mb-0">Email</p>
-                    </th>
-                    <th class="text-center">
-                      <p class="mb-0">Push</p>
-                    </th>
-                    <th class="text-center">
-                      <p class="mb-0">SMS</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="ps-1" colspan="4">
-                      <div class="my-auto">
-                        <span class="text-dark d-block text-sm">Mentions</span>
-                        <span class="text-xs font-weight-normal">Notify when another user mentions you in a comment</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault11">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault12">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault13">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="ps-1" colspan="4">
-                      <div class="my-auto">
-                        <span class="text-dark d-block text-sm">Comments</span>
-                        <span class="text-xs font-weight-normal">Notify when another user comments your item.</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault14">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault15">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault16">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="ps-1" colspan="4">
-                      <div class="my-auto">
-                        <span class="text-dark d-block text-sm">Follows</span>
-                        <span class="text-xs font-weight-normal">Notify when another user follows you.</span>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault17">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault18">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault19">
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="ps-1" colspan="4">
-                      <div class="my-auto">
-                        <p class="text-sm mb-0">Log in from a new device</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault20">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault21">
-                      </div>
-                    </td>
-                    <td>
-                      <div class="form-check form-switch mb-0 d-flex align-items-center justify-content-center">
-                        <input class="form-check-input" checked type="checkbox" id="flexSwitchCheckDefault22">
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+        
         </div>
-        <!-- Card Sessions -->
-        <div class="card mt-4" id="sessions">
-          <div class="card-header pb-3">
-            <h5>Sessions</h5>
-            <p class="text-sm">This is a list of devices that have logged into your account. Remove those that you do not recognize.</p>
-          </div>
-          <div class="card-body pt-0">
-            <div class="d-flex align-items-center">
-              <div class="text-center w-5">
-                <i class="fas fa-desktop text-lg opacity-6"></i>
-              </div>
-              <div class="my-auto ms-3">
-                <div class="h-100">
-                  <p class="text-sm mb-1">
-                    Bucharest 68.133.163.201
-                  </p>
-                  <p class="mb-0 text-xs">
-                    Your current session
-                  </p>
-                </div>
-              </div>
-              <span class="badge badge-success badge-sm my-auto ms-auto me-3">Active</span>
-              <p class="text-secondary text-sm my-auto me-3">EU</p>
-              <a href="javascript:;" class="text-primary text-sm icon-move-right my-auto">See more
-                <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
-              </a>
-            </div>
-            <hr class="horizontal dark">
-            <div class="d-flex align-items-center">
-              <div class="text-center w-5">
-                <i class="fas fa-desktop text-lg opacity-6"></i>
-              </div>
-              <p class="my-auto ms-3">Chrome on macOS</p>
-              <p class="text-secondary text-sm ms-auto my-auto me-3">US</p>
-              <a href="javascript:;" class="text-primary text-sm icon-move-right my-auto">See more
-                <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
-              </a>
-            </div>
-            <hr class="horizontal dark">
-            <div class="d-flex align-items-center">
-              <div class="text-center w-5">
-                <i class="fas fa-mobile text-lg opacity-6"></i>
-              </div>
-              <p class="my-auto ms-3">Safari on iPhone</p>
-              <p class="text-secondary text-sm ms-auto my-auto me-3">US</p>
-              <a href="javascript:;" class="text-primary text-sm icon-move-right my-auto">See more
-                <i class="fas fa-arrow-right text-xs ms-1" aria-hidden="true"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-        <!-- Card Delete Account -->
-        <div class="card mt-4" id="delete">
-          <div class="card-header">
-            <h5>Delete Account</h5>
-            <p class="text-sm mb-0">Once you delete your account, there is no going back. Please be certain.</p>
-          </div>
-          <div class="card-body d-sm-flex pt-0">
-            <div class="d-flex align-items-center mb-sm-0 mb-4">
-              <div>
-                <div class="form-check form-switch mb-0">
-                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault0">
-                </div>
-              </div>
-              <div class="ms-2">
-                <span class="text-dark font-weight-bold d-block text-sm">Confirm</span>
-                <span class="text-xs d-block">I want to delete my account.</span>
-              </div>
-            </div>
-            <button class="btn btn-outline-secondary mb-0 ms-auto" type="button" name="button">Deactivate</button>
-            <button class="btn bg-gradient-danger mb-0 ms-2" type="button" name="button">Delete Account</button>
-          </div>
-        </div>
+
+
+
       </div>
     </div>
    
+  </div>
+
+  <div class="modal fade" id="modal-train" tabindex="-1000" role="dialog" aria-labelledby="modal-train" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Model Train Configuration</h5>
+            <button type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            This function will commence the ML training using the Ridge Regression Method.<br />
+            We assume that a structured csv called shocks_with_dates.csv exists in the main model <br />
+            <a href="{% url 'train' %}" class="btn bg-gradient-secondary" >Click here to start</a>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
   </div>
 
 {% endblock content %}
@@ -619,12 +284,26 @@
   <script src="{% static 'js/plugins/datatables.js' %}"></script>
   <script src="{% static 'js/plugins/flatpickr.min.js' %}"></script>
   <script src="{% static 'js/plugins/counter.min.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js" ></script>
   <script>
    
     if (document.querySelector('.datepicker')) {
       flatpickr('.datepicker', {
       });
     }
+    $('#prophet-data').DataTable({
+        serverSide: true,
+        ordering:false,
+        'ajax': '/office/data?format=datatables',
+        'columns': [
+            {'data': 'ds'},
+            {'data': 'yhat'},
+            {'data': 'yhat_lower'},
+            {'data': 'yhat_upper'},
+        ]
+        
+      });
   </script>
   <script>
     var win = navigator.platform.indexOf('Win') > -1;

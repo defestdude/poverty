@@ -57,7 +57,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="clock-numbers d-flex flex-column h-100">
-                  <h2 data-easing="linear" data-duration="90000" class="font-weight-bolder mb-0 counters">441682814</h2>
+                  <h2 data-easing="linear" data-duration="90000" class="font-weight-bolder mb-0 counters">{{poverty_today}}</h2>
                   <h6>PEOPLE IN NIGERIA LIVING IN EXTREME POVERTY</h6>
                 </div>
               </div>
@@ -115,7 +115,7 @@
                   <div class="col-8 px-0">
                     <div class="numbers">
                       <p class="text-sm mb-0 text-capitalize font-weight-bold">ESCAPED POVERTY TODAY</p>
-                      <h5 class="font-weight-bolder mb-0">5,860 </h5>
+                      <h5 class="font-weight-bolder mb-0 counters-leaving">{{poverty_difference}} </h5>
                     </div>
                   </div>
 
@@ -308,16 +308,28 @@
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
     $('.counters').each(function () {
-      $(this).prop('Counter',5999900).animate({
+      $(this).prop('Counter',{{poverty_so_far}}).animate({
           Counter: $(this).text()
       }, {
-          duration: 40000000,
+          duration: {{duration}},
           easing: 'swing',
           step: function (now) {
               $(this).text(Math.ceil(now));
           }
       });
   });
+
+  $('.counters-leaving').each(function () {
+    $(this).prop('Counter',{{leaving_poverty_today}}).animate({
+        Counter: $(this).text()
+    }, {
+        duration: {{duration}},
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+});
 
     new Chart(ctx, {
       type: "bar",

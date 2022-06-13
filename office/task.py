@@ -11,6 +11,7 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, RidgeCV, Lasso, LassoCV
 from sklearn.metrics import mean_squared_error, r2_score
 from scipy.interpolate import interp1d
+from landing.models import PovertyFeatures, ProphetData
 from office.models import PredictionHistory, PredictionTypes, TrainHistory
 import pandas as pd
 import numpy as np
@@ -46,6 +47,40 @@ def run_ridge_training():
     final.reset_index(inplace=True)
     final.to_csv(interpolated)
 
+    # gce_gdp = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # gce_es = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # gedo = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # sgd = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # lg_cex = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # lg_df = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # liqratio = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # ltdepo = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # pms = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # cb_msme = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # vt_nse = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # kero = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    # brent = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+
+    PovertyFeatures.truncate()
+    for index, row in final.iterrows():
+        PovertyFeatures.objects.create(
+            feature_date = row['index'],
+            gce_gdp=row['gce_gdp'],
+            gce_es=row['gce_es'],
+            gedo=row['gedo'],
+            sgd=row['sgd'],
+            lg_cex=row['lg_cex'],
+            lg_df=row['lg_df'],
+            liqratio=row['liqratio'],
+            ltdepo=row['ltdepo'],
+            pms=row['pms'],
+            cb_msme=row['cb_msme'],
+            vt_nse=row['vt_nse'],
+            kero=row['kero'],
+            brent=row['brent']
+        )
+       
+
     print("\nRidge Model............................................\n")
     print("The train score for ridge model is {}".format(train_score_ridge))
     print("The test score for ridge model is {}".format(test_score_ridge))
@@ -64,6 +99,7 @@ def load_data():
     X = df3.iloc[:,:-1]
     y = df3['pov_hc']
     return X,y
+
 @shared_task
 def calculate_vif_(X, thresh=100):
     cols = X.columns
@@ -99,5 +135,14 @@ def prophesy():
     future = m.make_future_dataframe(periods=1730)
     forecast = m.predict(future)
     forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].to_csv(filename2)
+
+    ProphetData.truncate()
+    for index, row in forecast.iterrows():
+        ProphetData.objects.create(
+            ds = row['ds'],
+            yhat=row['yhat'],
+            yhat_lower=row['yhat_lower'],
+            yhat_upper=row['yhat_upper'],
+        )
     #forecast.to_csv(filename2)
     print("done")

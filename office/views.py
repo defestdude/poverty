@@ -4,11 +4,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import messages
+from office.helpers.data_viewer import PredictionSerializer
 
 from office.models import PredictionHistory, TrainHistory
 from .helpers.predictor import Predictor
-from landing.models import PovertyFeatures
+from landing.models import PovertyFeatures, ProphetData
 from .task import run_ridge_training
+from rest_framework import viewsets
 
 
 
@@ -60,14 +62,26 @@ def back_office(request):
     predictor = Predictor()
     train_history = TrainHistory.objects.latest('id')
     prediction_history = PredictionHistory.objects.latest('id')
-    run_ridge_training.delay()
+    #run_ridge_training.delay()
     #run_ridge_training()
-    messages.success(request, 'We are running the ridge training, refresh shortly')
+    #messages.success(request, 'We are running the ridge training, refresh shortly')
+    features_head = PovertyFeatures.objects.all()[:5]
+    features_tail = PovertyFeatures.objects.all().order_by('-id')[:5]
+    train_history = TrainHistory.objects.latest('id')
     context = {
         'train_history':train_history,
-        'prediction_history':prediction_history
+        'prediction_history':prediction_history,
+        'features_head':features_head,
+        'features_tail':features_tail,
+        'train_history':train_history,
     }
     return render(request, 'office/office.html', context)
+
+
+def begin_training(request):
+    run_ridge_training.delay()
+    messages.success(request, 'We are running the ridge training, refresh shortly')
+    return redirect('office')
 
 def shocks_injector(request):
     context = {}
@@ -78,6 +92,7 @@ def user_logout(request):
     logout(request)
     return redirect('login')
 
-class ItemListView(ServerSideDatatableView):
-	queryset = PovertyFeatures.objects.all()
-	columns = ['name', 'code', 'description']
+class PredictorViewSet(viewsets.ModelViewSet):
+    queryset = ProphetData.objects.all().order_by('-ds')
+    serializer_class = PredictionSerializer
+    
