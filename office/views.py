@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib import messages
+from pyparsing import null_debug_action
 from office.helpers.data_viewer import PredictionSerializer
 
 from office.models import PredictionHistory, TrainHistory
@@ -48,8 +49,14 @@ def user_login(request):
 def dashboard(request):
     context = {}
     predictor = Predictor()
-    train_history = TrainHistory.objects.latest('id')
-    prediction_history = PredictionHistory.objects.latest('id')
+    train_history = {}
+    prediction_history = {}
+
+    try:
+        train_history = TrainHistory.objects.latest('id')
+        prediction_history = PredictionHistory.objects.latest('id')
+    except:
+        print("No history yet")
     #predictor.run_ridge_training()
     context = {
         'train_history':train_history,
@@ -60,14 +67,21 @@ def dashboard(request):
 def back_office(request):
     context = {}
     predictor = Predictor()
-    train_history = TrainHistory.objects.latest('id')
-    prediction_history = PredictionHistory.objects.latest('id')
+
+    train_history = {}
+    prediction_history = {}
+
+    try:
+        train_history = TrainHistory.objects.latest('id')
+        prediction_history = PredictionHistory.objects.latest('id')
+    except:
+        print("no history")
     #run_ridge_training.delay()
     #run_ridge_training()
     #messages.success(request, 'We are running the ridge training, refresh shortly')
     features_head = PovertyFeatures.objects.all()[:5]
     features_tail = PovertyFeatures.objects.all().order_by('-id')[:5]
-    train_history = TrainHistory.objects.latest('id')
+
     context = {
         'train_history':train_history,
         'prediction_history':prediction_history,

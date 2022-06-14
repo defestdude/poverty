@@ -17,12 +17,21 @@ def dashboard(request):
     yesterday = now - timedelta(days=1)
     seconds_in_a_day = 86400
     seconds_so_far = get_total_seconds_so_far()
-    duration = (seconds_in_a_day - seconds_so_far)
+    duration = (seconds_in_a_day - seconds_so_far) * 1000
+    pyesterday = 0
+    ptoday = 0
     
-    phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)[0]
-    phc_today = ProphetData.objects.all().filter(ds = now)[0]
+    phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
+    phc_today = ProphetData.objects.all().filter(ds = now)
 
-    poverty_difference = (phc_today.yhat - phc_yesterday.yhat)*100
+    if phc_yesterday.count() > 0:
+        pyesterday = phc_yesterday[0].yhat
+    
+    if phc_today.count() > 0:
+        ptoday = phc_today[0].yhat
+
+
+    poverty_difference = (pyesterday - ptoday)*1000
 
     rate = abs(poverty_difference) / seconds_in_a_day
     poverty_so_far = 0
@@ -30,14 +39,15 @@ def dashboard(request):
     entering_poverty_today = 0
 
     if poverty_difference < 0:
-        poverty_so_far = phc_today.yhat - (rate * seconds_so_far)
+        print(poverty_difference)
+        poverty_so_far = ptoday - (rate * seconds_so_far)
         leaving_poverty_today = poverty_difference + (rate * seconds_so_far)
 
     else:
-        poverty_so_far = phc_today.yhat + (rate * seconds_so_far)
+        poverty_so_far = ptoday + (rate * seconds_so_far)
 
-    print(abs(poverty_difference))
-    print(leaving_poverty_today)
+    print(abs(poverty_so_far))
+    print(ptoday)
     #if poverty_difference < 0:
 
 
@@ -46,8 +56,8 @@ def dashboard(request):
         'page_subtitle' : 'Dashboard',
         'page_description' : 'Insights and Analytics',
         'poverty_so_far': poverty_so_far,
-        'leaving_poverty_today': leaving_poverty_today,
-        'poverty_today': phc_today.yhat,
+        'leaving_poverty_today': abs(leaving_poverty_today),
+        'poverty_today': ptoday,
         'rate':rate,
         'duration':duration,
         'poverty_difference':abs(poverty_difference)
