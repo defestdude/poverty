@@ -17,7 +17,7 @@ def dashboard(request):
     yesterday = now - timedelta(days=1)
     seconds_in_a_day = 86400
     seconds_so_far = get_total_seconds_so_far()
-    duration = (seconds_in_a_day - seconds_so_far) * 1000
+    duration = (seconds_in_a_day - seconds_so_far) *1000
     pyesterday = 0
     ptoday = 0
     
@@ -31,23 +31,45 @@ def dashboard(request):
         ptoday = phc_today[0].yhat
 
 
-    poverty_difference = (pyesterday - ptoday)*1000
+    poverty_difference = pyesterday - ptoday
 
     rate = abs(poverty_difference) / seconds_in_a_day
     poverty_so_far = 0
     leaving_poverty_today = 0
     entering_poverty_today = 0
+    starting_overall_count = 0
+    target_overall_count = 0
+    start_entry_count = 0
+    target_entry_count = 0
+    start_leaving_count = 0
+    target_leaving_count = 0
+    seconds_balance = seconds_in_a_day - seconds_so_far
+    escape_rate = 0
+    entry_rate = 0
 
     if poverty_difference < 0:
-        print(poverty_difference)
-        poverty_so_far = ptoday - (rate * seconds_so_far)
-        leaving_poverty_today = poverty_difference + (rate * seconds_so_far)
-
+        print("entering")
+        poverty_so_far = pyesterday + (rate * seconds_so_far)
+        starting_overall_count = poverty_so_far
+        target_overall_count = ptoday
+        start_entry_count = 0
+        target_entry_count = 0
     else:
-        poverty_so_far = ptoday + (rate * seconds_so_far)
+        print("leaving")
+        poverty_so_far = pyesterday - (rate * seconds_so_far)
+        entering_poverty_today = poverty_difference - (rate * seconds_so_far)
+        starting_overall_count = poverty_so_far
+        target_overall_count = ptoday
+        start_leaving_count = rate * seconds_so_far
+        target_leaving_count = abs(poverty_difference)
+        escape_rate = rate
 
-    print(abs(poverty_so_far))
+    print(pyesterday)
     print(ptoday)
+    print(abs(starting_overall_count))
+    print(target_overall_count)
+    print(poverty_difference)
+
     #if poverty_difference < 0:
 
 
@@ -60,7 +82,15 @@ def dashboard(request):
         'poverty_today': ptoday,
         'rate':rate,
         'duration':duration,
-        'poverty_difference':abs(poverty_difference)
+        'starting_overall_count':starting_overall_count,
+        'target_overall_count':target_overall_count,
+        'start_leaving_count':start_leaving_count,
+        'target_leaving_count':target_leaving_count,
+        'start_entry_count':start_entry_count,
+        'target_entry_count':target_entry_count,
+        'poverty_difference':abs(poverty_difference),
+        'escape_rate':escape_rate,
+        'entry_rate':entry_rate
 
     }
     return render(request, 'landing/dashboard.html', context)
@@ -70,5 +100,6 @@ def get_total_seconds_so_far():
     hours_to_seconds = now.hour * 60 * 60
     minutes_to_seconds = now.minute * 60
     seconds = now.second
+    # print(hours_to_seconds)
     return hours_to_seconds + minutes_to_seconds + seconds
     
