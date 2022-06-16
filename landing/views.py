@@ -20,17 +20,22 @@ def dashboard(request):
     duration = (seconds_in_a_day - seconds_so_far) *1000
     pyesterday = 0
     ptoday = 0
+    ptoday_lowest = 0
+    ptoday_higest = 0
     
     phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
     phc_today = ProphetData.objects.all().filter(ds = now)
+    
 
     if phc_yesterday.count() > 0:
         pyesterday = phc_yesterday[0].yhat
     
     if phc_today.count() > 0:
         ptoday = phc_today[0].yhat
+        ptoday_lowest = phc_today[0].yhat_lower
+        ptoday_highest = phc_today[0].yhat_upper
 
-
+    
     poverty_difference = pyesterday - ptoday
 
     rate = abs(poverty_difference) / seconds_in_a_day
@@ -90,7 +95,9 @@ def dashboard(request):
         'target_entry_count':target_entry_count,
         'poverty_difference':abs(poverty_difference),
         'escape_rate':escape_rate,
-        'entry_rate':entry_rate
+        'entry_rate':entry_rate,
+        'ptoday_lowest':ptoday_lowest,
+        'ptoday_highest':ptoday_highest
 
     }
     return render(request, 'landing/dashboard.html', context)

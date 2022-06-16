@@ -1,6 +1,7 @@
 <!-- START: Main Content-->
 {% extends 'main.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block custom_css %}
 <style> 
@@ -58,7 +59,7 @@
               <div class="col-lg-6">
                 <div class="clock-numbers d-flex flex-column h-100">
                   <h2 data-easing="linear" class="font-weight-bolder mb-0 counters">{{target_overall_count}}</h2>
-                  <h6>PEOPLE IN NIGERIA LIVING IN EXTREME POVERTY</h6>
+                  <h6>Living in poverty today (safe estimate). This number could be as low as {{ptoday_lowest |floatformat:0 | intcomma}} but not more than {{ptoday_highest |floatformat:0 | intcomma}}.</h6>
                 </div>
               </div>
             </div>
