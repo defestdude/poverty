@@ -58,7 +58,7 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="clock-numbers d-flex flex-column h-100">
-                  <h2 data-easing="linear" class="font-weight-bolder mb-0 counters">{{target_overall_count}}</h2>
+                  <h2 data-easing="linear" class="font-weight-bolder mb-0 counters display-4">{{target_overall_count}}</h2>
                   <h6>Living in poverty today (safe estimate). This number could be as low as {{ptoday_lowest |floatformat:0 | intcomma}} but not more than {{ptoday_highest |floatformat:0 | intcomma}}.</h6>
                 </div>
               </div>
@@ -73,13 +73,13 @@
                   <div class="col-4 ">
                     <div class="icon danger icon-shape clock-data-icon shadow text-center border-radius-md">
                       <!-- <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i> -->
-                      <i class="fas fa-running fa-2x opacity-10"></i>
+                      <i class="fas fa-stopwatch fa-1x opacity-10"></i>
                     </div>
                   </div>
                   <div class="col-8 px-0">
                     <div class="numbers">
                       <p class="text-sm mb-0 text-capitalize font-weight-bold">TARGET ESCAPE RATE</p>
-                      <h5 class="font-weight-bolder mb-0">  {{escape_rate |floatformat:2}} People/second  </h5>
+                      <h5 class="font-weight-bolder mb-0">  100 People/second  </h5>
                     </div>
                   </div>
 
@@ -91,7 +91,7 @@
                 <div class="row">
                   <div class="col-4">
                     <div class="icon icon-shape clock-data-icon shadow text-center border-radius-md">
-                      <i class="fas fa-running fa-2x opacity-10"></i>
+                      <i class="fas fa-clock fa-1x opacity-10"></i>
                     </div>
                   </div>
                   <div class="col-8 px-0">
@@ -267,10 +267,10 @@
         <div class="col-lg-6">
           <div class="card z-index-2">
             <div class="card-header pb-0">
-              <h6>Rainfall Data</h6>
+              <h6>7 - Day Predictions</h6>
               <p class="text-sm">
-                <i class="fa fa-arrow-up text-success"></i>
-                <span class="font-weight-bold">4% more</span> in 2022
+                <i class="fa {{trend_arrow}} {{trend_arrow_color}}"></i>
+                <span class="font-weight-bold">{{difference_percentage |floatformat:2 }}% {{more_less}}</span> today
               </p>
             </div>
             <div class="card-body p-3">
@@ -429,30 +429,43 @@ $('.counters-entry').each(function () {
     new Chart(ctx2, {
       type: "line",
       data: {
-        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        datasets: [{
-            label: "Mobile apps",
+        labels: {% autoescape off %}{{dates}} {% endautoescape%},
+        datasets: [
+        {
+          label: "Upper Limit",
+          tension: 0.4,
+          borderWidth: 0,
+          pointRadius: 0,
+          borderColor: "#98130e",
+          borderWidth: 3,
+          backgroundColor: gradientStroke2,
+          fill: true,
+          data: {{yhat_max}},
+          maxBarThickness: 6
+        },
+        {
+            label: "Safe Estimate",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 0,
-            borderColor: "#cb0c9f",
+            borderColor: "#1264bb",
             borderWidth: 3,
             backgroundColor: gradientStroke1,
             fill: true,
-            data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-            maxBarThickness: 6
+            data: {{yhat}},
+            maxBarThickness: 6,
 
           },
           {
-            label: "Websites",
+            label: "Lower Limit",
             tension: 0.4,
             borderWidth: 0,
             pointRadius: 0,
-            borderColor: "#3A416F",
+            borderColor: "#065425",
             borderWidth: 3,
             backgroundColor: gradientStroke2,
             fill: true,
-            data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+            data: {{yhat_min}},
             maxBarThickness: 6
           },
         ],
@@ -463,6 +476,23 @@ $('.counters-entry').each(function () {
         plugins: {
           legend: {
             display: false,
+          },
+          annotation: {
+            annotations: {
+              line1: {
+                type: 'line',
+                yMin: 60,
+                yMax: 60,
+                borderColor: 'rgb(255, 99, 132)',
+                borderWidth: 2,
+                arrowHeads: {
+                  start: {
+                    display:true,
+                    fill:true
+                  }
+                }
+              }
+            }
           }
         },
         interaction: {

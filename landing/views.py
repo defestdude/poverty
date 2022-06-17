@@ -14,6 +14,8 @@ from landing.models import ProphetData
 # Create your views here.
 def dashboard(request):
     now = datetime.now()
+    seven_days_ago = now - timedelta(days=7)
+
     yesterday = now - timedelta(days=1)
     seconds_in_a_day = 86400
     seconds_so_far = get_total_seconds_so_far()
@@ -22,9 +24,17 @@ def dashboard(request):
     ptoday = 0
     ptoday_lowest = 0
     ptoday_higest = 0
+    yhat_data = []
+    yhat_min = []
+    yhat_max = []
+    dates = []
+    more_less = "more"
+    trend_arrow = "fa-arrow-up"
+    trend_arrow_color = "text-danger"
     
     phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
     phc_today = ProphetData.objects.all().filter(ds = now)
+    phc_one_week = ProphetData.objects.all().filter(ds__range=[seven_days_ago, now])
     
 
     if phc_yesterday.count() > 0:
@@ -37,6 +47,8 @@ def dashboard(request):
 
     
     poverty_difference = pyesterday - ptoday
+
+    difference_percentage = (abs(poverty_difference)/pyesterday ) * 100
 
     rate = abs(poverty_difference) / seconds_in_a_day
     poverty_so_far = 0
@@ -61,6 +73,9 @@ def dashboard(request):
         target_entry_count = 0
     else:
         print("leaving")
+        more_less = "less"
+        trend_arrow = "fa-arrow-down"
+        trend_arrow_color = "text-success"
         poverty_so_far = pyesterday - (rate * seconds_so_far)
         entering_poverty_today = poverty_difference - (rate * seconds_so_far)
         starting_overall_count = poverty_so_far
@@ -69,12 +84,15 @@ def dashboard(request):
         target_leaving_count = abs(poverty_difference)
         escape_rate = rate
 
-    print(pyesterday)
-    print(ptoday)
-    print(abs(starting_overall_count))
-    print(target_overall_count)
-    print(poverty_difference)
+    
+    for data in phc_one_week:
+        yhat_data.append(int(data.yhat))
+        yhat_min.append(int(data.yhat_lower))
+        yhat_max.append(int(data.yhat_upper))
+        dates.append(data.ds.strftime("%Y-%m-%d"))
 
+    print(yhat_data)
+    
     #if poverty_difference < 0:
 
 
@@ -97,7 +115,15 @@ def dashboard(request):
         'escape_rate':escape_rate,
         'entry_rate':entry_rate,
         'ptoday_lowest':ptoday_lowest,
-        'ptoday_highest':ptoday_highest
+        'ptoday_highest':ptoday_highest,
+        'yhat':yhat_data,
+        'yhat_max':yhat_max,
+        'yhat_min':yhat_min,
+        'dates':dates,
+        'more_less':more_less,
+        'difference_percentage':difference_percentage,
+        'trend_arrow':trend_arrow,
+        'trend_arrow_color':trend_arrow_color
 
     }
     return render(request, 'landing/dashboard.html', context)
