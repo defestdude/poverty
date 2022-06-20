@@ -297,19 +297,19 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">Date</label>
-                    <input name="shock_date" type="text" class="form-control datepicker" id="exampleFormControlInput1" required>
+                    <input name="shock_date" value="{{now}}" type="text" class="form-control datepicker" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">gce_gdp</label>
-                    <input name="gce_gdp" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="gce_gdp" value="{{features_latest.gce_gdp}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">gce_es</label>
-                    <input name="gce_es" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="gce_es" value="{{features_latest.gce_es}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
               </div>
@@ -317,19 +317,19 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">gedo</label>
-                    <input name="gedo" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="gedo" value="{{features_latest.gedo}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">sgd</label>
-                    <input name="sgd" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="sgd" value="{{features_latest.sgd}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">lg_cex</label>
-                    <input name="lg_cex" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="lg_cex" value="{{features_latest.lg_cex}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
               </div>
@@ -338,19 +338,19 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">lg_df</label>
-                    <input name="lg_df" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="lg_df" value="{{features_latest.lg_df}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">liqratio</label>
-                    <input name="liqratio" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="liqratio" value="{{features_latest.liqratio}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">ltdepo</label>
-                    <input name="ltdepo" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="ltdepo" value="{{features_latest.ltdepo}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
               </div>
@@ -359,19 +359,19 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">pms</label>
-                    <input name="pms" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="pms" value="{{features_latest.pms}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">cb_msme</label>
-                    <input name="cb_msme" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="cb_msme" value="{{features_latest.cb_msme}}" type="number" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">vt_nse</label>
-                    <input name="vt_nse" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="vt_nse" type="number" value="{{features_latest.vt_nse}}" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
               </div>
@@ -379,13 +379,13 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">kero</label>
-                    <input name="kero" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="kero" type="number" value="{{features_latest.kero}}" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="example-text-input" class="form-control-label">brent</label>
-                    <input name="brent" type="number" step="0.01" class="form-control" id="exampleFormControlInput1" required>
+                    <input name="brent" type="number" value="{{features_latest.brent}}" step="0.0000000001" class="form-control" id="exampleFormControlInput1" required>
                   </div>
                 </div>
                

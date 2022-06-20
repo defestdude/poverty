@@ -1,12 +1,14 @@
 from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 from django.shortcuts import render
-
+from django.db.models.functions import TruncMonth
+from django.db.models import Count, Sum, Avg
 
 from django.conf import settings
 
 from decimal import *
 
-from landing.models import ProphetData
+from landing.models import PovertyFeatures, ProphetData
 
 
 
@@ -15,6 +17,7 @@ from landing.models import ProphetData
 def dashboard(request):
     now = datetime.now()
     seven_days_ago = now - timedelta(days=7)
+    six_months_ago = now + relativedelta(months=-6)
 
     yesterday = now - timedelta(days=1)
     seconds_in_a_day = 86400
@@ -28,6 +31,8 @@ def dashboard(request):
     yhat_min = []
     yhat_max = []
     dates = []
+    six_months_data = []
+    six_months_labels = []
     more_less = "more"
     trend_arrow = "fa-arrow-up"
     trend_arrow_color = "text-danger"
@@ -35,6 +40,10 @@ def dashboard(request):
     phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
     phc_today = ProphetData.objects.all().filter(ds = now)
     phc_one_week = ProphetData.objects.all().filter(ds__range=[seven_days_ago, now])
+    #phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).group
+    phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
+    
+    features_today = PovertyFeatures.objects.latest('id')
     
 
     if phc_yesterday.count() > 0:
@@ -91,7 +100,11 @@ def dashboard(request):
         yhat_max.append(int(data.yhat_upper))
         dates.append(data.ds.strftime("%Y-%m-%d"))
 
-    print(yhat_data)
+    for data in phc_six_months:
+        six_months_data.append(int(data['c']))
+        six_months_labels.append(data['month'].strftime("%b %Y"))
+
+    print(six_months_data)
     
     #if poverty_difference < 0:
 
@@ -123,7 +136,10 @@ def dashboard(request):
         'more_less':more_less,
         'difference_percentage':difference_percentage,
         'trend_arrow':trend_arrow,
-        'trend_arrow_color':trend_arrow_color
+        'trend_arrow_color':trend_arrow_color,
+        'six_months_data':six_months_data,
+        'six_months_labels':six_months_labels,
+        'features_today':features_today
 
     }
     return render(request, 'landing/dashboard.html', context)

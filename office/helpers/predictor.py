@@ -19,6 +19,7 @@ import os
 from pickle5 import pickle
 import datetime
 from prophet import Prophet
+from landing.models import PovertyFeatures
 
 from office.models import PredictionHistory, PredictionTypes, TrainHistory
 
@@ -47,13 +48,44 @@ class Predictor:
         vt_nse=Decimal(postdata['vt_nse'])
         kero=Decimal(postdata['kero'])
         brent=Decimal(postdata['brent'])
+
+        # shock_date=postdata['shock_date']
+        # gce_gdp=postdata['gce_gdp'],
+        # gce_es=postdata['gce_es'],
+        # gedo=postdata['gedo'],
+        # sgd=postdata['sgd'],
+        # lg_cex=postdata['lg_cex'],
+        # lg_df=postdata['lg_df'],
+        # liqratio=postdata['liqratio'],
+        # ltdepo=postdata['ltdepo'],
+        # pms=postdata['pms'],
+        # cb_msme=postdata['cb_msme'],
+        # vt_nse=postdata['vt_nse'],
+        # kero=postdata['kero'],
+        # brent=postdata['brent']
         
         #y_pred = scipy.transform([[shock_date, gce_gdp, gce_es, gedo, sgd, lg_cex, lg_df, liqratio, ltdepo, cbl_ra, cb_msme, vt_nse, kero, brent]])
         y_pred = rf.predict(np.array([gce_gdp, gce_es, gedo, sgd, lg_cex, lg_df, liqratio, ltdepo, pms, cb_msme, vt_nse, kero, brent]).reshape(1, -1))
         output = pd.DataFrame(y_pred)
-        #PredictionHistory.objects.create(prediction_date=timenow, prediction_score=output, prediction_type = prediction_type)
+        PredictionHistory.objects.create(prediction_date=timenow, prediction_score=output.iat[0,0], prediction_type = prediction_type)
+        PovertyFeatures.objects.create(
+            feature_date=postdata['shock_date'],
+            gce_gdp=postdata['gce_gdp'],
+            gce_es=postdata['gce_es'],
+            gedo=postdata['gedo'],
+            sgd=postdata['sgd'],
+            lg_cex=postdata['lg_cex'],
+            lg_df=postdata['lg_df'],
+            liqratio=postdata['liqratio'],
+            ltdepo=postdata['ltdepo'],
+            pms=postdata['pms'],
+            cb_msme=postdata['cb_msme'],
+            vt_nse=postdata['vt_nse'],
+            kero=postdata['kero'],
+            brent=postdata['brent']
+        )
         
-        print(type(output))
+        print(output.iat[0,0])
         #output.to_csv('rf.csv')
 
     

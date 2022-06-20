@@ -1,3 +1,4 @@
+from datetime import datetime
 from django_serverside_datatable.views import ServerSideDatatableView
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
@@ -51,16 +52,22 @@ def dashboard(request):
     predictor = Predictor()
     train_history = {}
     prediction_history = {}
+    features_latest = []
+    now = datetime.now()
 
     try:
         train_history = TrainHistory.objects.latest('id')
         prediction_history = PredictionHistory.objects.latest('id')
+        features_latest = PovertyFeatures.objects.latest('id')
+        print(features_latest)
     except:
         print("No history yet")
     #predictor.run_ridge_training()
     context = {
         'train_history':train_history,
-        'prediction_history':prediction_history
+        'prediction_history':prediction_history,
+        'features_latest':features_latest,
+        'now':now.strftime(("%Y-%m-%d"))
     }
     return render(request, 'office/dashboard.html', context)
 
