@@ -53,12 +53,14 @@ def dashboard(request):
     train_history = {}
     prediction_history = {}
     features_latest = []
+    features_tail = []
     now = datetime.now()
 
     try:
         train_history = TrainHistory.objects.latest('id')
         prediction_history = PredictionHistory.objects.latest('id')
         features_latest = PovertyFeatures.objects.latest('id')
+        features_tail = PovertyFeatures.objects.all().order_by('-id')[:20]
         print(features_latest)
     except:
         print("No history yet")
@@ -67,7 +69,8 @@ def dashboard(request):
         'train_history':train_history,
         'prediction_history':prediction_history,
         'features_latest':features_latest,
-        'now':now.strftime(("%Y-%m-%d"))
+        'now':now.strftime(("%Y-%m-%d")),
+        'features_tail':features_tail
     }
     return render(request, 'office/dashboard.html', context)
 

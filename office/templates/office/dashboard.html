@@ -66,70 +66,24 @@
                       <tr>
                         <th>Date</th>
                         <th>gce_gdp</th>
-                        <th>gce_es</th>
-                        <th>gedo</th>
-                        <th>sdg</th>
+                        <th>brent</th>
+                        <th>kerosine</th>
+                        <th>pms</th>
                         <th>lg_cex</th>
                       </tr>
                     </thead>
                     <tbody>
+                      {% for tab in features_tail %}
                       <tr>
-                        <td class="text-sm font-weight-normal">09/06/2022</td>
-                        <td class="text-sm font-weight-normal">4.34</td>
-                        <td class="text-sm font-weight-normal">33.66</td>
-                        <td class="text-sm font-weight-normal">633.14</td>
-                        <td class="text-sm font-weight-normal">-6.44</td>
-                        <td class="text-sm font-weight-normal">5.51</td>
+                        <td class="text-sm font-weight-normal">{{tab.feature_date}}</td>
+                        <td class="text-sm font-weight-normal">{{tab.gce_gdp | floatformat:4}}</td>
+                        <td class="text-sm font-weight-normal">{{tab.gce_gdp | floatformat:4}}</td>
+                        <td class="text-sm font-weight-normal">{{tab.gce_gdp | floatformat:4}}</td>
+                        <td class="text-sm font-weight-normal">{{tab.gce_gdp | floatformat:4}}</td>
+                        <td class="text-sm font-weight-normal">{{tab.gce_gdp | floatformat:4}}</td>
                       </tr>
-                      <tr>
-                        <td class="text-sm font-weight-normal">10/06/2022</td>
-                        <td class="text-sm font-weight-normal">4.35</td>
-                        <td class="text-sm font-weight-normal">34.66</td>
-                        <td class="text-sm font-weight-normal">634.14</td>
-                        <td class="text-sm font-weight-normal">-7.44</td>
-                        <td class="text-sm font-weight-normal">6.51</td>
-                      </tr>
-                      <tr>
-                        <td class="text-sm font-weight-normal">11/06/2022</td>
-                        <td class="text-sm font-weight-normal">4.34</td>
-                        <td class="text-sm font-weight-normal">33.66</td>
-                        <td class="text-sm font-weight-normal">633.14</td>
-                        <td class="text-sm font-weight-normal">-6.44</td>
-                        <td class="text-sm font-weight-normal">5.51</td>
-                      </tr>
-                      
-                      <tr>
-                        <td class="text-sm font-weight-normal">12/06/2022</td>
-                        <td class="text-sm font-weight-normal">4.34</td>
-                        <td class="text-sm font-weight-normal">33.66</td>
-                        <td class="text-sm font-weight-normal">633.14</td>
-                        <td class="text-sm font-weight-normal">-6.44</td>
-                        <td class="text-sm font-weight-normal">5.51</td>
-                      </tr>
-                      <tr>
-                        <td class="text-sm font-weight-normal">13/06/2022</td>
-                        <td class="text-sm font-weight-normal">4.34</td>
-                        <td class="text-sm font-weight-normal">33.66</td>
-                        <td class="text-sm font-weight-normal">633.14</td>
-                        <td class="text-sm font-weight-normal">-6.44</td>
-                        <td class="text-sm font-weight-normal">5.51</td>
-                      </tr>
-                      <tr>
-                        <td class="text-sm font-weight-normal">14/06/2022</td>
-                        <td class="text-sm font-weight-normal">4.34</td>
-                        <td class="text-sm font-weight-normal">33.66</td>
-                        <td class="text-sm font-weight-normal">633.14</td>
-                        <td class="text-sm font-weight-normal">-6.44</td>
-                        <td class="text-sm font-weight-normal">5.51</td>
-                      </tr>
-                      <tr>
-                        <td class="text-sm font-weight-normal">15/06/2022</td>
-                        <td class="text-sm font-weight-normal">4.34</td>
-                        <td class="text-sm font-weight-normal">33.66</td>
-                        <td class="text-sm font-weight-normal">633.14</td>
-                        <td class="text-sm font-weight-normal">-6.44</td>
-                        <td class="text-sm font-weight-normal">5.51</td>
-                      </tr>
+                      {% endfor %}
+                     
                     </tbody>
                   </table>
                 </div>
