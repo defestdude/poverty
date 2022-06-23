@@ -285,7 +285,7 @@
         <div class="col-lg-6">
           <div class="card z-index-2">
             <div class="card-header pb-0">
-              <h6>Inflation</h6>
+              <h6>Inflation (%)</h6>
               <!--<p class="text-sm">
                 <i class="fa {{trend_arrow}} {{trend_arrow_color}}"></i>
                 <span class="font-weight-bold">{{difference_percentage |floatformat:2 }}% {{more_less}}</span> today
@@ -601,7 +601,7 @@ $('.counters-entry').each(function () {
         labels: {% autoescape off %}{{inflation_labels}} {% endautoescape%},
         datasets: [{
             label: "Inflation",
-            tension: 0.0,
+            tension: 0.4,
             borderWidth: 0,
             pointRadius: 2,
             pointBackgroundColor: "#cb0c9f",

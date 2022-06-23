@@ -48,6 +48,7 @@ def dashboard(request):
         inflation_one_week = Inflation.objects.all().filter(ds__range=[seven_days_ago, now])
         #phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).group
         phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
+        inflation_six_months = Inflation.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
         
         features_today = PovertyFeatures.objects.latest('id')
     except:
@@ -111,13 +112,17 @@ def dashboard(request):
         yhat_max.append(int(data.yhat_upper))
         dates.append(data.ds.strftime("%Y-%m-%d"))
     
-    for data in inflation_one_week:
-        inflation_data.append(float(data.yhat))
-        inflation_labels.append(data.ds.strftime("%Y-%m-%d"))
+    # for data in inflation_one_week:
+    #     inflation_data.append(float(data.yhat))
+    #     inflation_labels.append(data.ds.strftime("%Y-%m-%d"))
 
     for data in phc_six_months:
         six_months_data.append(int(data['c']))
         six_months_labels.append(data['month'].strftime("%b %Y"))
+    
+    for data in inflation_six_months:
+        inflation_data.append(float(data['c']))
+        inflation_labels.append(data['month'].strftime("%b %Y"))
 
    
     
