@@ -88,7 +88,7 @@ def back_office(request):
         print("no history")
     #run_ridge_training.delay()
     #run_ridge_training()
-    upload_inflation.delay()
+    #upload_inflation.delay()
     #messages.success(request, 'We are running the ridge training, refresh shortly')
     features_head = PovertyFeatures.objects.all()[:5]
     features_tail = PovertyFeatures.objects.all().order_by('-id')[:5]
