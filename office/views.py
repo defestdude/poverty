@@ -11,7 +11,7 @@ from office.helpers.data_viewer import PredictionSerializer
 from office.models import PredictionHistory, TrainHistory
 from .helpers.predictor import Predictor
 from landing.models import PovertyFeatures, ProphetData
-from .task import run_ridge_training
+from .task import run_ridge_training, upload_inflation
 from rest_framework import viewsets
 
 
@@ -80,7 +80,7 @@ def back_office(request):
 
     train_history = {}
     prediction_history = {}
-
+    #predictor.upload_inflation()
     try:
         train_history = TrainHistory.objects.latest('id')
         prediction_history = PredictionHistory.objects.latest('id')
@@ -88,6 +88,7 @@ def back_office(request):
         print("no history")
     #run_ridge_training.delay()
     #run_ridge_training()
+    upload_inflation.delay()
     #messages.success(request, 'We are running the ridge training, refresh shortly')
     features_head = PovertyFeatures.objects.all()[:5]
     features_tail = PovertyFeatures.objects.all().order_by('-id')[:5]

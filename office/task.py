@@ -11,7 +11,7 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, RidgeCV, Lasso, LassoCV
 from sklearn.metrics import mean_squared_error, r2_score
 from scipy.interpolate import interp1d
-from landing.models import PovertyFeatures, ProphetData
+from landing.models import Inflation, PovertyFeatures, ProphetData
 from office.models import PredictionHistory, PredictionTypes, TrainHistory
 import pandas as pd
 import numpy as np
@@ -31,6 +31,7 @@ def run_ridge_training():
     X, y = load_data()
     newX = calculate_vif_(X, thresh=100)
     X_train,X_test,y_train,y_test = train_test_split(newX,y,test_size=0.3,random_state=0)  #newX is the X with reduced features after VIF
+    #X_train,X_test,y_train,y_test = train_test_split(X,y,test_size=0.3,random_state=0)
     ridgeReg = Ridge(alpha=10)
 
     ridgeReg.fit(X_train,y_train)
@@ -42,7 +43,7 @@ def run_ridge_training():
     TrainHistory.objects.create(train_date=timenow, train_score=test_score_ridge, train_type = prediction_type)
     pickle.dump(ridgeReg, open(filename,'wb'))
 
-    final = newX
+    final = X
     final["pred"] = y.values
     final.reset_index(inplace=True)
     final.to_csv(interpolated)
@@ -62,6 +63,7 @@ def run_ridge_training():
     # brent = models.DecimalField(max_digits=21, decimal_places=10, null=False)
 
     PovertyFeatures.truncate()
+    #print(final)
     for index, row in final.iterrows():
         PovertyFeatures.objects.create(
             feature_date = row['index'],
@@ -146,3 +148,25 @@ def prophesy():
         )
     #forecast.to_csv(filename2)
     print("done")
+
+@shared_task
+def upload_inflation():    
+    temp_path = os.path.join(settings.BASE_DIR, "models")
+    filename = os.path.join(temp_path, "forecast_inflation.csv")
+    #df = pd.read_csv(filename, parse_dates={ 'date': ['ds']})
+    df = pd.read_csv(filename)
+    Inflation.truncate()
+    #print(df)
+    for index, row in df.iterrows():
+        #datestr = row['ds'].strftime("%d/%m/%Y")
+        testdate = datetime.datetime.strptime(row['ds'], "%d/%m/%Y")
+        testdate2 = testdate.strftime('%Y-%m-%d')
+        # print(testdate)
+        # print(testdate2)
+        Inflation.objects.create(
+            ds = testdate,
+            yhat=row['yhat_main'],
+            yhat_lower=row['yhat_lower_main'],
+            yhat_upper=row['yhat_upper_main'],
+        )
+        #print(row['date'], row['yhat_main'])

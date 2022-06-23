@@ -8,7 +8,7 @@ from django.conf import settings
 
 from decimal import *
 
-from landing.models import PovertyFeatures, ProphetData
+from landing.models import Inflation, PovertyFeatures, ProphetData
 
 
 
@@ -36,14 +36,22 @@ def dashboard(request):
     more_less = "more"
     trend_arrow = "fa-arrow-up"
     trend_arrow_color = "text-danger"
+    inflation_data = []
+    inflation_labels = []
+    male_headcount = 0
+    female_headcount = 0
     
-    phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
-    phc_today = ProphetData.objects.all().filter(ds = now)
-    phc_one_week = ProphetData.objects.all().filter(ds__range=[seven_days_ago, now])
-    #phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).group
-    phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
-    
-    features_today = PovertyFeatures.objects.latest('id')
+    try:
+        phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
+        phc_today = ProphetData.objects.all().filter(ds = now)
+        phc_one_week = ProphetData.objects.all().filter(ds__range=[seven_days_ago, now])
+        inflation_one_week = Inflation.objects.all().filter(ds__range=[seven_days_ago, now])
+        #phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).group
+        phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
+        
+        features_today = PovertyFeatures.objects.latest('id')
+    except:
+        print("no data today")
     
 
     if phc_yesterday.count() > 0:
@@ -53,6 +61,8 @@ def dashboard(request):
         ptoday = phc_today[0].yhat
         ptoday_lowest = phc_today[0].yhat_lower
         ptoday_highest = phc_today[0].yhat_upper
+        male_headcount = ptoday * Decimal(0.5056)
+        female_headcount = ptoday - male_headcount
 
     
     poverty_difference = pyesterday - ptoday
@@ -69,6 +79,7 @@ def dashboard(request):
     target_entry_count = 0
     start_leaving_count = 0
     target_leaving_count = 0
+    
     seconds_balance = seconds_in_a_day - seconds_so_far
     escape_rate = 0
     entry_rate = 0
@@ -99,12 +110,16 @@ def dashboard(request):
         yhat_min.append(int(data.yhat_lower))
         yhat_max.append(int(data.yhat_upper))
         dates.append(data.ds.strftime("%Y-%m-%d"))
+    
+    for data in inflation_one_week:
+        inflation_data.append(float(data.yhat))
+        inflation_labels.append(data.ds.strftime("%Y-%m-%d"))
 
     for data in phc_six_months:
         six_months_data.append(int(data['c']))
         six_months_labels.append(data['month'].strftime("%b %Y"))
 
-    print(six_months_data)
+   
     
     #if poverty_difference < 0:
 
@@ -139,7 +154,11 @@ def dashboard(request):
         'trend_arrow_color':trend_arrow_color,
         'six_months_data':six_months_data,
         'six_months_labels':six_months_labels,
-        'features_today':features_today
+        'features_today':features_today,
+        'inflation_data':inflation_data,
+        'inflation_labels':inflation_labels,
+        'male_headcount':male_headcount,
+        'female_headcount':female_headcount
 
     }
     return render(request, 'landing/dashboard.html', context)

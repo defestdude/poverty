@@ -37,6 +37,20 @@ class ProphetData(models.Model):
     def truncate(self):
         cursor = connection.cursor()
         cursor.execute('TRUNCATE TABLE landing_prophetdata')
+
+class Inflation(models.Model):
+    ds = models.DateField(null=True)
+    yhat = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    yhat_lower = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+    yhat_upper = models.DecimalField(max_digits=21, decimal_places=10, null=False)
+
+    class Meta:
+        ordering = ['id']
+
+    @classmethod
+    def truncate(self):
+        cursor = connection.cursor()
+        cursor.execute('TRUNCATE TABLE landing_inflation')
     
 class EmailBackend(ModelBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):

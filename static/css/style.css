@@ -84,6 +84,13 @@
   .clock-data-icon-red{
     background-color: #8e1818;
   }
+
+  .female-data-icon-pink{
+    background-color: #da57a3;
+  }
+  .male-data-icon-blue{
+    background-color:#44a2f7
+  }
 /* MAP */
 .zoom-controls {
     display: block;
