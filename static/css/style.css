@@ -73,6 +73,11 @@
     font-weight: 400;
     font-size: 15px;
   }
+  .main-heading {
+    color:#048863;
+    font-size:20px;
+    
+  }
  .clock-data H5 {
     font-weight: 800;
     font-size: 18px;
