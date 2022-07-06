@@ -163,13 +163,14 @@ svg path{
     position: absolute;
     font-size: 12px;
     text-align: center;
-    background: white;
+    background: #222222;
     padding: 8px;
     z-index: 5;
-    height: 60px;
-    line-height: 5px;
+    height: auto;
+    width: 180px;
+    line-height: 1px;
     margin: 0 auto;
-    color: #21669e;
+    color: #ffffff;
     border-radius: 5px;
     box-shadow: 0 0 0 1px #eee
     +transform(translateX(-50%));
@@ -190,6 +191,13 @@ svg path{
       border-right: 10px solid transparent;
       border-top: 10px solid white;
       display: none;
+  }
+  .state_card{
+    font-size: 10px;
+    text-align: left;
+  }
+  .country_name{
+    font-size: 18px;
   }
    
 
