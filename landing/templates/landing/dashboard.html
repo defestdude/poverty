@@ -688,7 +688,9 @@ $('.counters-entry').each(function () {
   
       description.addClass('active');
       pcount = Math.round($(this).attr('pcount')).toString();
-      var htmlinner = "<strong>"+$(this).attr('name')+"</strong> <br /> <p>"+convert(pcount)+"</p>";
+      var cardtitle = "<span class='state_card'>STATE CARD</span> <br />";
+      var countryname = "<p class='country_name'><strong>"+$(this).attr('name')+"</strong></p>";
+      var htmlinner = cardtitle+countryname+"<br /> <p>"+convert(pcount)+"</p> <br />People living with poverty";
       description.html(htmlinner);
     }, function() {
       description.removeClass('active');
