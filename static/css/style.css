@@ -162,12 +162,12 @@ svg path{
     pointer-events: none;
     position: absolute;
     font-size: 12px;
-    text-align: center;
+  
     background: #222222;
-    padding: 8px;
+    padding: 12px;
     z-index: 5;
     height: auto;
-    width: 180px;
+    width: auto;
     line-height: 1px;
     margin: 0 auto;
     color: #ffffff;
