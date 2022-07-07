@@ -63,12 +63,27 @@
   float: right;
   align-self: baseline;
 }
-/* CLOCK */
-.clock-numbers h2 {
+
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 601px) {
+  .clock-numbers h2 {
+    color: #0fab80;
+    font-size: 6vw;
+    font-weight: 800;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  .clock-numbers h2 {
     color: #0fab80;
     font-size: 50px;
     font-weight: 800;
   }
+}
+
+/* CLOCK */
+
   .clock-data P {
     font-weight: 400;
     font-size: 15px;
