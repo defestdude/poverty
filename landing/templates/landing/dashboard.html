@@ -312,6 +312,9 @@
                 <div class="card-body p-3">
                    <div class="map-section"> {% include 'map.html' with posts=postdata %} </div>
                 </div>
+                <div class="card-footer" id="mapfoot">
+                  
+                </div>
               </div>
         </div> <!--End Map-->
     </div>
@@ -694,6 +697,17 @@ $('.counters-entry').each(function () {
       description.html(htmlinner);
     }, function() {
       description.removeClass('active');
+    });
+
+    $(".enabled").click(function(){
+      var statename = $(this).attr('name');
+      var overallCount = {{target_overall_count}};
+      var tmp = ($(this).attr('ratio') * overallCount) / 100
+      var round = Math.round(tmp).toString();
+      var povertyheadcount = convert(round);
+      var html = "<strong>State:</strong> "+statename+" | <strong>Poverty Headcount:</strong> "+povertyheadcount;
+      $("#mapfoot").html(html);
+      
     });
 
     $(document).on('mousemove', function(e){
