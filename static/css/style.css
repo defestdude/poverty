@@ -82,6 +82,28 @@
   }
 }
 
+.row-flex {
+  display: flex;
+  flex-wrap: wrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+
+}
+
+
+/* vertical spacing between columns */
+
+[class*="col-"] {
+  margin-bottom: 10px;
+}
+
+
+.content {
+  height: 100%;
+  padding: 20px 20px 10px;
+}
+
 /* CLOCK */
 
   .clock-data P {

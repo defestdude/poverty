@@ -66,8 +66,9 @@
 
     <!-- Second Row  -->
   
-    <div class="row">
+    <div class="row row-flex">
         <div class="col-lg-6"> <!-- Left counters-->
+        <div class="content">
           <div class="card">
             <div class="card-body">
             <div class="row"> <!-- Top story-->
@@ -168,11 +169,12 @@
                     </div>
                 </div> <!-- End Women Counter-->
                 &nbsp;
-            </div> <!--End Second Row Counters-->
+            </div> </div><!--End Second Row Counters-->
        <!-- End Left Counters-->
           </div></div>
     </div><!--End Left-->
     <div class="col-lg-6 "> <!--Begin Map-->
+      <div class="content">
       <div class="card z-index-2">
         <div class="card-header pb-0">
           <h6>Distribution by States</h6>
@@ -189,14 +191,15 @@
         </div>
       </div>
       </div> <!--End Map-->
-
+    </div>
     </div><!-- End row-->
 
     <p>&nbsp;</p>
    
-    <div class="row">
-        <div class="col-lg-6 align-self-stretch "> <!--Begin inflation-->
-            <div class="card z-index-2 flex-fill">
+    <div class="row row-flex">
+        <div class="col-lg-6 "> <!--Begin inflation-->
+          <div class="content">
+            <div class="card z-index-2 ">
                 <div class="card-header ">
                   <h6>Inflation (%)</h6>
                   <!--<p class="text-sm">
@@ -204,17 +207,18 @@
                     <span class="font-weight-bold">{{difference_percentage |floatformat:2 }}% {{more_less}}</span> today
                   </p> -->
                 </div>
-                <div class="card-body flex-fill">
+                <div class="card-body ">
                   <div class="chart">
-                    <canvas id="inflation" class="chart-canvas" height="300px"></canvas>
+                    <canvas id="inflation" class="chart-canvas" height="370px"></canvas>
                   </div>
                 </div>
               </div>
               &nbsp;
-        </div> <!--End inflation-->
+        </div></div> <!--End inflation-->
        
         <div class="col-lg-6 "> <!-- Begin Right-->
-          <div class="card flex-fill">     
+          <div class="content">
+          <div class="card ">     
               <div class="card-header pb-0">
                   <ul class="nav nav-pills nav-fill flex-row p-1" id="tabs-pricing" role="tablist">
                       <li class="nav-item">
@@ -320,7 +324,7 @@
                   </div>
                   
                   
-              </div><!-- End Tab-->
+              </div></div><!-- End Tab-->
    
           </div> <!--End Right-->
    
