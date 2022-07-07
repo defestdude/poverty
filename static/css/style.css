@@ -91,6 +91,20 @@
 
 }
 
+.equal {
+  display: flex;
+  display: -webkit-flex;
+  flex-wrap: wrap;
+}
+
+.col-container {
+  display: table; /* Make the container element behave like a table */
+  width: 100%; /* Set full-width to expand the whole page */
+}
+
+.col {
+  display: table-cell; /* Make elements inside the container behave like table cells */
+}
 
 /* vertical spacing between columns */
 
@@ -101,7 +115,7 @@
 
 .content {
   height: 100%;
-  padding: 0px 10px 0px;
+  padding: 20px 0px 10px;
 }
 
 /* CLOCK */
@@ -249,3 +263,8 @@ svg path{
   cursor: pointer;
 }
   
+
+.my-flex-card > div > div.card {
+  height: calc(100% - 15px);
+  margin-bottom: 15px;
+}
