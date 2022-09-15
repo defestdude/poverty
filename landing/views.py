@@ -7,14 +7,28 @@ from django.db.models import Count, Sum, Avg
 from django.conf import settings
 
 from decimal import *
+import os
 
-from landing.models import Inflation, PovertyFeatures, ProphetData
+from landing.models import Inflation, PovertyFeatures, ProphetData, ProphetDataNoCovid
+import pandas as pd
+
+
 
 
 
 
 # Create your views here.
 def dashboard(request):
+
+    # temp_path = os.path.join(settings.BASE_DIR, "models")
+    # filename = os.path.join(temp_path, "forcast_nocovid.csv")
+    # empdata = pd.read_csv(filename, index_col=False, delimiter = ',')
+
+    # for i,row in empdata.iterrows():
+    #     #here %S means string values 
+    #     #xsprint (row['yhat_lower'])
+    #     ProphetDataNoCovid.objects.create(ds = row['ds'], yhat=row['yhat'], yhat_lower=row['yhat_lower'], yhat_upper = row['yhat_upper'])
+
     now = datetime.now()
     seven_days_ago = now - timedelta(days=7)
     six_months_ago = now + relativedelta(months=-6)
@@ -40,16 +54,41 @@ def dashboard(request):
     inflation_labels = []
     male_headcount = 0
     female_headcount = 0
+    rate_type_text = "ENTRY RATE"
+    leaving_entry = "counters-leaving"
+    rate_text = "ESCAPED"
+    flash_type = "leave_flashing"
+    clock_data_icon = "clock-data-icon"
+    data_type_label = "WITH COVID IMPACT"
     
     try:
-        phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
-        phc_today = ProphetData.objects.all().filter(ds = now)
-        phc_one_week = ProphetData.objects.all().filter(ds__range=[seven_days_ago, now])
-        inflation_one_week = Inflation.objects.all().filter(ds__range=[seven_days_ago, now])
-        #phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).group
-        phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
-        inflation_six_months = Inflation.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
-        
+        if 'switch' in request.GET:
+            if request.GET['switch'] == "nocovid":
+                phc_yesterday = ProphetDataNoCovid.objects.all().filter(ds = yesterday)
+                phc_today = ProphetDataNoCovid.objects.all().filter(ds = now)
+                phc_one_week = ProphetDataNoCovid.objects.all().filter(ds__range=[seven_days_ago, now])
+                inflation_one_week = Inflation.objects.all().filter(ds__range=[seven_days_ago, now])
+                #phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).group
+                phc_six_months = ProphetDataNoCovid.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
+                inflation_six_months = Inflation.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
+                data_type_label = "WITHOUT COVID IMPACT"
+            else:
+                phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
+                phc_today = ProphetData.objects.all().filter(ds = now)
+                phc_one_week = ProphetData.objects.all().filter(ds__range=[seven_days_ago, now])
+                inflation_one_week = Inflation.objects.all().filter(ds__range=[seven_days_ago, now])
+                #phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).group
+                phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
+                inflation_six_months = Inflation.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
+                
+        else:
+            phc_yesterday = ProphetData.objects.all().filter(ds = yesterday)
+            phc_today = ProphetData.objects.all().filter(ds = now)
+            phc_one_week = ProphetData.objects.all().filter(ds__range=[seven_days_ago, now])
+            inflation_one_week = Inflation.objects.all().filter(ds__range=[seven_days_ago, now])
+            #phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).group
+            phc_six_months = ProphetData.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
+            inflation_six_months = Inflation.objects.all().filter(ds__range=[six_months_ago, now]).annotate(month=TruncMonth('ds')).values('month').annotate(c=Avg('yhat')).order_by()
         features_today = PovertyFeatures.objects.latest('id')
     except:
         print("no data today")
@@ -87,11 +126,21 @@ def dashboard(request):
 
     if poverty_difference < 0:
         print("entering")
+        clock_data_icon = "clock-data-icon-red"
+        rate_text = "ENTERED"
+        more_less = "less"
+        trend_arrow = "fa-arrow-up"
+        trend_arrow_color = "text-danger"
         poverty_so_far = pyesterday + (rate * seconds_so_far)
         starting_overall_count = poverty_so_far
         target_overall_count = ptoday
-        start_entry_count = 0
-        target_entry_count = 0
+        start_entry_count = rate * seconds_so_far
+        target_entry_count = abs(poverty_difference)
+        target_leaving_count = abs(poverty_difference)
+        escape_rate = rate
+        leaving_entry = "counters-entry"
+        flash_type = "enter_flashing"
+
     else:
         print("leaving")
         more_less = "less"
@@ -104,6 +153,7 @@ def dashboard(request):
         start_leaving_count = rate * seconds_so_far
         target_leaving_count = abs(poverty_difference)
         escape_rate = rate
+        rate_type_text = "ESCAPE RATE"
 
     
     for data in phc_one_week:
@@ -123,6 +173,10 @@ def dashboard(request):
     for data in inflation_six_months:
         inflation_data.append(float(data['c']))
         inflation_labels.append(data['month'].strftime("%b %Y"))
+
+    
+    
+        #print(empdata.head())
 
    
     
@@ -163,7 +217,13 @@ def dashboard(request):
         'inflation_data':inflation_data,
         'inflation_labels':inflation_labels,
         'male_headcount':male_headcount,
-        'female_headcount':female_headcount
+        'female_headcount':female_headcount,
+        'rate_type_text':rate_type_text,
+        'leaving_entering':leaving_entry,
+        'rate_text':rate_text,
+        'flash_type':flash_type,
+        'clock_data_icon':clock_data_icon,
+        'data_type':data_type_label
 
     }
     return render(request, 'landing/dashboard.html', context)
