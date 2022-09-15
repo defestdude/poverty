@@ -18,7 +18,7 @@ from scipy.interpolate import interp1d
 import os
 from pickle5 import pickle
 import datetime
-from prophet import Prophet
+#from prophet import Prophet
 from collections import deque
 from landing.models import PovertyFeatures
 
@@ -101,9 +101,5 @@ class Predictor:
 
         output.to_csv('rf.csv')
 
-    def upload_inflation(self):    
-        temp_path = os.path.join(settings.BASE_DIR, "models")
-        filename = os.path.join(temp_path, "forecast_inflation.csv")
-        df = pd.read_csv(filename, parse_dates={ 'date': ['ds']})
-        print(df)
+   
     

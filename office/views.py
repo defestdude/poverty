@@ -10,7 +10,7 @@ from office.helpers.data_viewer import PredictionSerializer
 
 from office.models import PredictionHistory, TrainHistory
 from .helpers.predictor import Predictor
-from landing.models import PovertyFeatures, ProphetData
+from landing.models import PovertyFeatures
 from .task import run_ridge_training, upload_inflation
 from rest_framework import viewsets
 
@@ -118,6 +118,7 @@ def user_logout(request):
     return redirect('login')
 
 class PredictorViewSet(viewsets.ModelViewSet):
-    queryset = ProphetData.objects.all().order_by('-ds')
-    serializer_class = PredictionSerializer
+    print("done")
+    # queryset = ProphetData.objects.all().order_by('-ds')
+    # serializer_class = PredictionSerializer
     
