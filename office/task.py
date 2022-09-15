@@ -5,13 +5,13 @@ from django.conf import settings
 import os
 from pickle5 import pickle
 import datetime
-from prophet import Prophet
+#from prophet import Prophet
 from sklearn.model_selection import RepeatedKFold, train_test_split
 from sklearn.decomposition import PCA
 from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, RidgeCV, Lasso, LassoCV
 from sklearn.metrics import mean_squared_error, r2_score
 from scipy.interpolate import interp1d
-from landing.models import Inflation, PovertyFeatures, ProphetData
+from landing.models import Inflation, PovertyFeatures
 from office.models import PredictionHistory, PredictionTypes, TrainHistory
 import pandas as pd
 import numpy as np
@@ -132,20 +132,20 @@ def prophesy():
     df = pd.read_csv(filename)
     df = df.iloc[: , 1:]
     df = df.rename(columns={"index": "ds", "pred": "y"})
-    m = Prophet()
-    m.fit(df)
-    future = m.make_future_dataframe(periods=1730)
-    forecast = m.predict(future)
-    forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].to_csv(filename2)
+    # m = Prophet()
+    # m.fit(df)
+    # future = m.make_future_dataframe(periods=1730)
+    # forecast = m.predict(future)
+    # forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].to_csv(filename2)
 
-    ProphetData.truncate()
-    for index, row in forecast.iterrows():
-        ProphetData.objects.create(
-            ds = row['ds'],
-            yhat=row['yhat'],
-            yhat_lower=row['yhat_lower'],
-            yhat_upper=row['yhat_upper'],
-        )
+    # ProphetData.truncate()
+    # for index, row in forecast.iterrows():
+    #     ProphetData.objects.create(
+    #         ds = row['ds'],
+    #         yhat=row['yhat'],
+    #         yhat_lower=row['yhat_lower'],
+    #         yhat_upper=row['yhat_upper'],
+    #     )
     #forecast.to_csv(filename2)
     print("done")
 
