@@ -1,19 +1,19 @@
 from decimal import Decimal
 from django.conf import settings
 import pandas as pd
-import random
-import scipy
+#import random
+#import scipy
 from scipy.interpolate import interp1d
-import plotly.express as px
-from statsmodels.stats.outliers_influence import variance_inflation_factor    
+
+#from statsmodels.stats.outliers_influence import variance_inflation_factor    
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import scale 
-from sklearn import model_selection
-from sklearn.model_selection import RepeatedKFold, train_test_split
-from sklearn.decomposition import PCA
-from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, RidgeCV, Lasso, LassoCV
-from sklearn.metrics import mean_squared_error, r2_score
+#import matplotlib.pyplot as plt
+#from sklearn.preprocessing import scale 
+#from sklearn import model_selection
+##from sklearn.model_selection import RepeatedKFold, train_test_split
+##from sklearn.decomposition import PCA
+#from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, RidgeCV, Lasso, LassoCV
+#from sklearn.metrics import mean_squared_error, r2_score
 from scipy.interpolate import interp1d
 import os
 from pickle5 import pickle
