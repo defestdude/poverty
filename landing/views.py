@@ -10,7 +10,7 @@ from decimal import *
 import os
 
 from landing.models import Inflation, PovertyFeatures, ProphetData, ProphetDataNoCovid
-import pandas as pd
+#import pandas as pd
 
 
 

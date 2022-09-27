@@ -1,9 +1,9 @@
 from decimal import Decimal
 from django.conf import settings
-import pandas as pd
+#import pandas as pd
 #import random
 #import scipy
-from scipy.interpolate import interp1d
+#from scipy.interpolate import interp1d
 
 #from statsmodels.stats.outliers_influence import variance_inflation_factor    
 #import numpy as np
@@ -14,7 +14,7 @@ from scipy.interpolate import interp1d
 ##from sklearn.decomposition import PCA
 #from sklearn.linear_model import LinearRegression, LogisticRegression, Ridge, RidgeCV, Lasso, LassoCV
 #from sklearn.metrics import mean_squared_error, r2_score
-from scipy.interpolate import interp1d
+#from scipy.interpolate import interp1d
 import os
 from pickle5 import pickle
 import datetime
@@ -29,27 +29,27 @@ class Predictor:
     
 
     def run_ridge_prediction(self, postdata):
-        prediction_type = PredictionTypes.objects.get(id=3)
-        timenow = datetime.datetime.now()
-        temp_path = os.path.join(settings.BASE_DIR, "models")
-        filename = os.path.join(temp_path, "main_model.sav")
-        shocks_filename = os.path.join(temp_path, "shocks_with_dates.csv")
-        rf = pickle.load(open(filename,'rb'))
+        # prediction_type = PredictionTypes.objects.get(id=3)
+        # timenow = datetime.datetime.now()
+        # temp_path = os.path.join(settings.BASE_DIR, "models")
+        # filename = os.path.join(temp_path, "main_model.sav")
+        # shocks_filename = os.path.join(temp_path, "shocks_with_dates.csv")
+        # rf = pickle.load(open(filename,'rb'))
 
-        shock_date=postdata['shock_date']
-        gce_gdp=Decimal(postdata['gce_gdp'])
-        gce_es=Decimal(postdata['gce_es'])
-        gedo=Decimal(postdata['gedo'])
-        sgd=Decimal(postdata['sgd'])
-        lg_cex=Decimal(postdata['lg_cex'])
-        lg_df=Decimal(postdata['lg_df'])
-        liqratio=Decimal(postdata['liqratio'])
-        ltdepo=Decimal(postdata['ltdepo'])
-        pms=Decimal(postdata['pms'])
-        cb_msme=Decimal(postdata['cb_msme'])
-        vt_nse=Decimal(postdata['vt_nse'])
-        kero=Decimal(postdata['kero'])
-        brent=Decimal(postdata['brent'])
+        # shock_date=postdata['shock_date']
+        # gce_gdp=Decimal(postdata['gce_gdp'])
+        # gce_es=Decimal(postdata['gce_es'])
+        # gedo=Decimal(postdata['gedo'])
+        # sgd=Decimal(postdata['sgd'])
+        # lg_cex=Decimal(postdata['lg_cex'])
+        # lg_df=Decimal(postdata['lg_df'])
+        # liqratio=Decimal(postdata['liqratio'])
+        # ltdepo=Decimal(postdata['ltdepo'])
+        # pms=Decimal(postdata['pms'])
+        # cb_msme=Decimal(postdata['cb_msme'])
+        # vt_nse=Decimal(postdata['vt_nse'])
+        # kero=Decimal(postdata['kero'])
+        # brent=Decimal(postdata['brent'])
 
         # shock_date=postdata['shock_date']
         # gce_gdp=postdata['gce_gdp'],
@@ -100,6 +100,7 @@ class Predictor:
         #     writer.writerow(list1)
 
         # output.to_csv('rf.csv')
+        print(1)
 
    
     
