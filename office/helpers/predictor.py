@@ -6,7 +6,7 @@ import pandas as pd
 from scipy.interpolate import interp1d
 
 #from statsmodels.stats.outliers_influence import variance_inflation_factor    
-import numpy as np
+#import numpy as np
 #import matplotlib.pyplot as plt
 #from sklearn.preprocessing import scale 
 #from sklearn import model_selection
@@ -67,10 +67,10 @@ class Predictor:
         # brent=postdata['brent']
         
         #y_pred = scipy.transform([[shock_date, gce_gdp, gce_es, gedo, sgd, lg_cex, lg_df, liqratio, ltdepo, cbl_ra, cb_msme, vt_nse, kero, brent]])
-        features_array = np.array([gce_gdp, gce_es, gedo, sgd, lg_cex, lg_df, liqratio, ltdepo, pms, cb_msme, vt_nse, kero, brent]).reshape(1, -1)
-        y_pred = rf.predict(features_array)
-        output = pd.DataFrame(y_pred)
-        PredictionHistory.objects.create(prediction_date=timenow, prediction_score=output.iat[0,0], prediction_type = prediction_type)
+        # features_array = np.array([gce_gdp, gce_es, gedo, sgd, lg_cex, lg_df, liqratio, ltdepo, pms, cb_msme, vt_nse, kero, brent]).reshape(1, -1)
+        # y_pred = rf.predict(features_array)
+        # output = pd.DataFrame(y_pred)
+        # PredictionHistory.objects.create(prediction_date=timenow, prediction_score=output.iat[0,0], prediction_type = prediction_type)
         # PovertyFeatures.objects.create(
         #     feature_date=postdata['shock_date'],
         #     gce_gdp=postdata['gce_gdp'],
@@ -87,19 +87,19 @@ class Predictor:
         #     kero=postdata['kero'],
         #     brent=postdata['brent']
         # )
-        final_array = np.append(features_array, Decimal(output.iat[0,0]))
+        # final_array = np.append(features_array, Decimal(output.iat[0,0]))
         
-        import csv   
-        fields=['first','second','third']
-        with open(shocks_filename, 'a+',newline='') as f:
-            writer = csv.writer(f)
-            list1 = final_array.tolist()
-            list1 = deque(list1)
-            format_date = datetime.datetime.strptime(shock_date, "%Y-%m-%d").strftime("%d/%m/%Y")
-            list1.appendleft(format_date)
-            writer.writerow(list1)
+        # import csv   
+        # fields=['first','second','third']
+        # with open(shocks_filename, 'a+',newline='') as f:
+        #     writer = csv.writer(f)
+        #     list1 = final_array.tolist()
+        #     list1 = deque(list1)
+        #     format_date = datetime.datetime.strptime(shock_date, "%Y-%m-%d").strftime("%d/%m/%Y")
+        #     list1.appendleft(format_date)
+        #     writer.writerow(list1)
 
-        output.to_csv('rf.csv')
+        # output.to_csv('rf.csv')
 
    
     

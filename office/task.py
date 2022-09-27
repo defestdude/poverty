@@ -14,7 +14,7 @@ from scipy.interpolate import interp1d
 from landing.models import Inflation, PovertyFeatures
 from office.models import PredictionHistory, PredictionTypes, TrainHistory
 import pandas as pd
-import numpy as np
+#import numpy as np
 from scipy.interpolate import interp1d
 import plotly.express as px
 from statsmodels.stats.outliers_influence import variance_inflation_factor
@@ -105,22 +105,22 @@ def load_data():
 @shared_task
 def calculate_vif_(X, thresh=100):
     cols = X.columns
-    variables = np.arange(X.shape[1])
-    dropped=True
-    while dropped:
-        dropped=False
-        c = X[cols[variables]].values
-        vif = [variance_inflation_factor(c, ix) for ix in np.arange(c.shape[1])]
+    # variables = np.arange(X.shape[1])
+    # dropped=True
+    # while dropped:
+    #     dropped=False
+    #     c = X[cols[variables]].values
+    #     vif = [variance_inflation_factor(c, ix) for ix in np.arange(c.shape[1])]
 
-        maxloc = vif.index(max(vif))
-        if max(vif) > thresh:
-            print('dropping \'' + X[cols[variables]].columns[maxloc] + '\' at index: ' + str(maxloc))
-            variables = np.delete(variables, maxloc)
-            dropped=True
+    #     maxloc = vif.index(max(vif))
+    #     if max(vif) > thresh:
+    #         print('dropping \'' + X[cols[variables]].columns[maxloc] + '\' at index: ' + str(maxloc))
+    #         variables = np.delete(variables, maxloc)
+    #         dropped=True
 
     #print('Remaining variables:')
     #print(X.columns[variables])
-    return X[cols[variables]]
+    #return X[cols[variables]]
 @shared_task
 def prophesy():
     try:
