@@ -10,7 +10,7 @@ from decimal import *
 import os
 
 from landing.models import Inflation, PovertyFeatures, ProphetData, ProphetDataNoCovid
-#import pandas as pd
+import pandas as pd
 
 
 
@@ -20,14 +20,14 @@ from landing.models import Inflation, PovertyFeatures, ProphetData, ProphetDataN
 # Create your views here.
 def dashboard(request):
 
-    # temp_path = os.path.join(settings.BASE_DIR, "models")
-    # filename = os.path.join(temp_path, "forcast_nocovid.csv")
-    # empdata = pd.read_csv(filename, index_col=False, delimiter = ',')
+    temp_path = os.path.join(settings.BASE_DIR, "models")
+    filename = os.path.join(temp_path, "forecast.csv")
+    empdata = pd.read_csv(filename, index_col=False, delimiter = ',')
 
     # for i,row in empdata.iterrows():
     #     #here %S means string values 
     #     #xsprint (row['yhat_lower'])
-    #     ProphetDataNoCovid.objects.create(ds = row['ds'], yhat=row['yhat'], yhat_lower=row['yhat_lower'], yhat_upper = row['yhat_upper'])
+    #     ProphetData.objects.create(ds = datetime.strptime(row['ds'], '%m/%d/%y'), yhat=row['yhat'], yhat_lower=row['yhat_lower'], yhat_upper = row['yhat_upper'])
 
     now = datetime.now()
     seven_days_ago = now - timedelta(days=7)
@@ -60,6 +60,7 @@ def dashboard(request):
     flash_type = "leave_flashing"
     clock_data_icon = "clock-data-icon"
     data_type_label = "WITH COVID IMPACT"
+    ptoday_highest = 0
     
     try:
         if 'switch' in request.GET:
@@ -107,7 +108,10 @@ def dashboard(request):
     
     poverty_difference = pyesterday - ptoday
 
-    difference_percentage = (abs(poverty_difference)/pyesterday ) * 100
+    try:
+        difference_percentage = (abs(poverty_difference)/pyesterday ) * 100
+    except Exception:
+        difference_percentage = 0
 
     rate = abs(poverty_difference) / seconds_in_a_day
     poverty_so_far = 0
